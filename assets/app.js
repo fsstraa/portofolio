@@ -3,13 +3,13 @@
      Ubah nama, warna era, dan urutan halaman di sini. Warna di sini harus
      cocok dengan tema body[data-page=...] di assets/styles.css */
   var PAGES=[
-    {key:'index',     file:'index.html',     label:'Beranda',    year:'2025', name:'Era AI Generatif',      color:'#ff2d8f'},
-    {key:'biodata',   file:'biodata.html',   label:'Biodata',    year:'2015', name:'Era Deep Learning',     color:'#00e0c6'},
-    {key:'keahlian',  file:'keahlian.html',  label:'Keahlian',   year:'2006', name:'Era Machine Learning',  color:'#3b82f6'},
-    {key:'proyek',    file:'proyek.html',    label:'Proyek',     year:'1997', name:'Era Deep Blue',         color:'#22c55e'},
-    {key:'kegiatan',  file:'kegiatan.html',  label:'Kegiatan',   year:'1986', name:'Era Sistem Pakar',      color:'#f59e0b'},
-    {key:'pencapaian',file:'pencapaian.html',label:'Pencapaian', year:'1966', name:'Era Logika & ELIZA',    color:'#a78bfa'},
-    {key:'kontak',    file:'kontak.html',    label:'Kontak',     year:'1950', name:'Kelahiran AI - Turing', color:'#e0b060'}
+    {key:'index',     file:'index.html',     label:'Beranda',    year:'2025', name:'Era AI Generatif',      color:'#ff2d8f', anim:'zoom'},
+    {key:'biodata',   file:'biodata.html',   label:'Biodata',    year:'2015', name:'Era Deep Learning',     color:'#00e0c6', anim:'right'},
+    {key:'keahlian',  file:'keahlian.html',  label:'Keahlian',   year:'2006', name:'Era Machine Learning',  color:'#3b82f6', anim:'zoom'},
+    {key:'proyek',    file:'proyek.html',    label:'Proyek',     year:'1997', name:'Era Deep Blue',         color:'#22c55e', anim:'left'},
+    {key:'kegiatan',  file:'kegiatan.html',  label:'Kegiatan',   year:'1986', name:'Era Sistem Pakar',      color:'#f59e0b', anim:'zoom'},
+    {key:'pencapaian',file:'pencapaian.html',label:'Pencapaian', year:'1966', name:'Era Logika & ELIZA',    color:'#a78bfa', anim:'tilt'},
+    {key:'kontak',    file:'kontak.html',    label:'Kontak',     year:'1950', name:'Kelahiran AI - Turing', color:'#e0b060', anim:'fade'}
   ];
 
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -100,9 +100,16 @@
     $$('#navShell ul a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open')})});
   }
 
-  /* ---------- SLIDE NAVIGASI (zoom + popup) ---------- */
-  var slideFrom=sessionStorage.getItem('pf_dir');sessionStorage.removeItem('pf_dir');
-  if(slideFrom){document.body.classList.add('entering-r');setTimeout(function(){document.body.classList.remove('entering-r','entering-l')},520)}
+  /* ---------- SLIDE NAVIGASI (variasi ala Kage) ---------- */
+  var slideDir=sessionStorage.getItem('pf_dir'),slideAnim=sessionStorage.getItem('pf_anim')||'zoom';
+  sessionStorage.removeItem('pf_dir');sessionStorage.removeItem('pf_anim');
+  if(slideDir){
+    document.body.classList.add('en-'+slideAnim);
+    setTimeout(function(){
+      ['en-zoom','en-right','en-left','en-fade','en-tilt','ex-zoom','ex-right','ex-left','ex-fade','ex-tilt']
+        .forEach(function(c){document.body.classList.remove(c)});
+    },620);
+  }
 
   function showPV(p){
     if(reduce)return;
@@ -144,9 +151,12 @@
   function go(i,dir){
     var t=PAGES[(i+PAGES.length)%PAGES.length];
     if(t.file===CP.file)return;
+    var anim=(PAGES[i]&&PAGES[i].anim)||'zoom';
     sessionStorage.setItem('pf_dir',dir);
+    sessionStorage.setItem('pf_anim',anim);
     showPV(t);
-    document.body.classList.add(dir==='next'?'exiting-r':'exiting-l');
+    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt'].forEach(function(c){document.body.classList.remove(c)});
+    document.body.classList.add('ex-'+anim);
     setTimeout(function(){location.href=t.file},reduce?0:320);
   }
   document.addEventListener('click',function(e){
@@ -311,26 +321,30 @@
     scene.addEventListener('pointermove',function(e){
       var R=scene.getBoundingClientRect();
       var x=(e.clientX-R.left)/R.width-.5,y=(e.clientY-R.top)/R.height-.5;
-      tgt.ry=x*44;tgt.rx=-14-y*26;
-      setSpidey(Math.abs(x)>.4||Math.abs(y)>.45);
+      tgt.ry=x*52;tgt.rx=-16-y*30;
+      setSpidey(Math.abs(x)>.38||Math.abs(y)>.42);
     },{passive:true});
     scene.addEventListener('pointerenter',function(){over=true});
-    scene.addEventListener('pointerleave',function(){over=false;tgt.rx=-14;tgt.ry=0});
+    scene.addEventListener('pointerleave',function(){over=false;tgt.rx=-16;tgt.ry=0});
     (function tiltLoop(){
       var t=Date.now();
-      if(!over){tgt.ry=Math.sin(t*.0005)*7;tgt.rx=-14+Math.cos(t*.00042)*3}
+      if(!over){tgt.ry=Math.sin(t*.0005)*8;tgt.rx=-16+Math.cos(t*.00042)*4}
       cur.rx+=(tgt.rx-cur.rx)*.09;cur.ry+=(tgt.ry-cur.ry)*.09;
+      var k=Math.min(1,Math.abs(cur.ry)/52);
       card.style.setProperty('--rx',cur.rx.toFixed(2)+'deg');
       card.style.setProperty('--ry',cur.ry.toFixed(2)+'deg');
+      card.style.setProperty('--zs',(1-k*.045).toFixed(3));
+      scene.style.setProperty('--sx',(cur.ry*.34).toFixed(1)+'px');
+      scene.style.setProperty('--ss',(1-k*.16).toFixed(3));
       requestAnimationFrame(tiltLoop);
     })();
     if(window.DeviceOrientationEvent){
       window.addEventListener('deviceorientation',function(e){
         if(over)return;
         var b=e.beta||0,g=e.gamma||0;
-        tgt.rx=Math.max(-30,Math.min(10,-b+12));
-        tgt.ry=Math.max(-30,Math.min(30,g));
-        setSpidey(Math.abs(g)>24||Math.abs(b-12)>26);
+        tgt.rx=Math.max(-34,Math.min(10,-b+14));
+        tgt.ry=Math.max(-34,Math.min(34,g*1.15));
+        setSpidey(Math.abs(g)>24||Math.abs(b-14)>28);
       },true);
     }
   }
