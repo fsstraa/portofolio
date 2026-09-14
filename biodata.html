@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04131c">
+<meta name="description" content="Biodata Fachry Satria Putra - Web Development, Builder, UI/UX Designer.">
+<title>Biodata | Fachry Satria Putra</title>
+<link rel="stylesheet" href="assets/styles.css">
+<script>function st(i){i.classList.add('gone')}</script>
+</head>
+<body data-page="biodata">
+<canvas id="bg"></canvas>
+<div class="vignette"></div>
+
+<main id="page">
+  <div class="screen">
+    <div class="hd reveal">
+      <span class="chip">Biodata Pribadi</span>
+      <h1>Tentang <em>Diri Saya</em></h1>
+      <p>Dari ide menjadi produk nyata - terus belajar, membangun, dan berkembang setiap hari.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="card ab-card reveal">
+        <div class="ab-ph">
+          <!-- EDIT FOTO PROFIL: ganti src di bawah dengan foto kamu, atau lewat menu Admin -->
+          <img src="https://picsum.photos/seed/diri/420/420" alt="Foto profil" loading="lazy" data-pf-i="fotoProfil">
+          <div class="ph-bg"><span>FS</span></div>
+        </div>
+        <div class="ab-bio">
+          <h3 data-pf="nama">Fachry Satria Putra</h3>
+          <p data-pf="badge">Web Development · Builder · UI/UX Designer</p>
+        </div>
+        <div class="ab-tags">
+          <span>Web</span><span>Mobile</span><span>AI</span><span>UI/UX</span><span>Freelance</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h3 class="ab-info-h">Saya <em data-pf="nama">Fachry Satria Putra</em>, Web Developer &amp; Builder</h3>
+        <p data-pf="tentang">Saya percaya teknologi yang baik adalah teknologi yang terasa ringan dan sederhana di tangan pengguna. Fokus saya membangun website, aplikasi, dan produk digital yang cepat di perangkat apa pun, sekaligus merancang antarmuka yang jelas dan elegan. Berikut biodata singkat saya.</p>
+        <div class="dl">
+          <!-- EDIT BIODATA: ubah nilai di dalam <span> sesuai data kamu, atau lewat menu Admin -->
+          <div class="cell"><span class="ico">N</span><div><b>Nama Lengkap</b><span data-pf="nama_lengkap">Fachry Satria Putra</span></div></div>
+          <div class="cell"><span class="ico">T</span><div><b>Tempat, Tgl Lahir</b><span data-pf="ttl">Jakarta, 15 Mei 2000</span></div></div>
+          <div class="cell"><span class="ico">E</span><div><b>Email</b><span data-pf="email">rizky.pratama@gmail.com</span></div></div>
+          <div class="cell"><span class="ico">W</span><div><b>WhatsApp</b><span data-pf="wa">+62 812-3456-7890</span></div></div>
+          <div class="cell"><span class="ico">L</span><div><b>Domisili</b><span data-pf="lokasi">Depok, Jawa Barat</span></div></div>
+          <div class="cell"><span class="ico">P</span><div><b>Pendidikan</b><span data-pf="pendidikan">S1 Teknik Informatika</span></div></div>
+          <div class="cell"><span class="ico">S</span><div><b>Status</b><span data-pf="status">Freelancer &amp; Open to Work</span></div></div>
+          <div class="cell"><span class="ico">A</span><div><b>Bidang Minat</b><span data-pf="minat">Web Dev, Builder, UI/UX</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

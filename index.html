@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12071f">
+<meta name="description" content="Portofolio 3D interaktif Fachry Satria Putra - Web Development, Builder, UI/UX Designer.">
+<title>Fachry Satria Putra | Portofolio - Web Development, Builder, UI/UX Designer</title>
+<link rel="stylesheet" href="assets/styles.css">
+<script>function st(i){i.classList.add('gone')}</script>
+</head>
+<body data-page="index">
+<canvas id="bg"></canvas>
+<div class="vignette"></div>
+
+<main id="page">
+  <div class="screen">
+    <div class="hero-grid">
+
+      <div>
+        <!-- EDIT DATA PRIBADI: ganti nama, deskripsi, dan link sosmed di bawah -->
+        <span class="badge reveal" data-pf="badge"><i></i> Web Development &middot; Builder &middot; UI/UX Designer</span>
+        <h1 class="hero-t reveal">Halo, Saya<br><span class="glass" data-pf="nama">Fachry Satria Putra</span></h1>
+        <p class="type-mask reveal">Saya seorang <span id="typed"></span></p>
+        <p class="desc reveal" data-pf="desc">Membangun pengalaman digital yang cepat, ringan, dan berkesan. Dari web hingga aplikasi AI, saya suka menciptakan produk yang terasa halus di setiap perangkat.</p>
+        <div class="cta reveal">
+          <a class="btn pri" href="proyek.html">Lihat Proyek</a>
+          <a class="btn ghost" href="kegiatan.html">Lihat Kegiatan</a>
+        </div>
+        <div class="socials reveal" id="heroSoc"></div>
+      </div>
+
+      <div class="hero-right">
+        <div class="cube-wrap"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="cube-wrap c2"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="scene" id="scene">
+          <span class="ring r1"></span><span class="ring r2"></span>
+          <div class="floaty">
+            <div class="card3d" id="card3d">
+              <div class="flip" id="flip">
+                <div class="face">
+                  <svg viewBox="0 0 220 260">
+                    <defs>
+                      <linearGradient id="avb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b3b8f"/><stop offset="1" stop-color="#0d1230"/></linearGradient>
+                      <linearGradient id="avh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6cda0"/><stop offset="1" stop-color="#e2a878"/></linearGradient>
+                    </defs>
+                    <rect width="220" height="260" fill="url(#avb)" rx="26"/>
+                    <circle cx="40" cy="45" r="3" fill="#63e6ff" opacity=".5"/><circle cx="178" cy="60" r="2.5" fill="#8b7bff" opacity=".6"/><circle cx="60" cy="200" r="2.5" fill="#63e6ff" opacity=".35"/><circle cx="185" cy="190" r="3" fill="#e11d2e" opacity=".4"/><circle cx="30" cy="130" r="2" fill="#8b7bff" opacity=".4"/>
+                    <path d="M30 260 V214 Q64 168 110 168 Q156 168 190 214 V260 Z" fill="#131a3c"/>
+                    <path d="M94 260 V214 Q110 172 110 168 Q110 172 126 214 V260 Z" fill="#1e2752"/>
+                    <rect x="99" y="160" width="22" height="22" rx="8" fill="#d99a66"/>
+                    <circle cx="110" cy="126" r="46" fill="url(#avh)"/>
+                    <path d="M66 116 Q66 74 110 74 Q154 74 154 116 Q142 96 128 106 Q120 86 104 100 Q92 106 66 116 Z" fill="#1d1d1f"/>
+                    <circle cx="70" cy="118" r="6" fill="#e2a878"/><circle cx="150" cy="118" r="6" fill="#e2a878"/>
+                    <ellipse cx="98" cy="132" rx="4.4" ry="2.6" fill="#241f1c"/>
+                    <ellipse cx="122" cy="132" rx="4.4" ry="2.6" fill="#241f1c"/>
+                    <rect x="82" y="124" width="34" height="18" rx="6" fill="rgba(150,180,255,.22)" stroke="#1b2a63" stroke-width="2.5"/>
+                    <rect x="118" y="124" width="34" height="18" rx="6" fill="rgba(150,180,255,.22)" stroke="#1b2a63" stroke-width="2.5"/>
+                    <line x1="116" y1="132" x2="118" y2="132" stroke="#1b2a63" stroke-width="2.4"/>
+                    <path d="M100 153 q10 9 20 0" fill="none" stroke="#a3544a" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="face face-back">
+                  <svg viewBox="0 0 220 260">
+                    <defs>
+                      <linearGradient id="sb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7d0012"/><stop offset="1" stop-color="#e11d2e"/></linearGradient>
+                      <linearGradient id="sbd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12275e"/><stop offset="1" stop-color="#1b4db8"/></linearGradient>
+                    </defs>
+                    <rect width="220" height="260" fill="url(#sb)" rx="26"/>
+                    <path d="M0 0 H220 V40 q-40 34 -110 34 q-70 0 -110 -34 Z" fill="rgba(255,255,255,.10)"/>
+                    <g stroke="rgba(255,255,255,.12)" fill="none" stroke-width="1.5">
+                      <path d="M20 260 V120 Q60 70 110 70 Q160 70 200 120 V260"/>
+                      <path d="M20 180 Q110 130 200 180"/>
+                      <path d="M20 230 Q110 185 200 230"/>
+                      <path d="M90 260 Q110 150 110 70"/>
+                      <path d="M130 260 Q110 150 110 70"/>
+                    </g>
+                    <path d="M30 260 V212 Q62 168 110 168 Q158 168 190 212 V260 Z" fill="url(#sbd)"/>
+                    <path d="M88 260 V210 q22 -56 22 -56 q14 30 22 56 V260 Z" fill="#e11d2e"/>
+                    <g stroke="#7d0012" stroke-width="2" fill="none" opacity=".55">
+                      <path d="M74 104 q36 22 72 0"/><path d="M76 120 q34 20 68 0"/><path d="M78 136 q32 18 64 0"/>
+                      <path d="M94 80 q16 16 16 46"/><path d="M126 80 q-16 16 -16 46"/>
+                    </g>
+                    <circle cx="110" cy="118" r="44" fill="#e11d2e"/>
+                    <path d="M66 110 Q88 84 112 110 Q96 130 66 110 Z" fill="#fff" stroke="#161616" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M154 110 Q132 84 108 110 Q124 130 154 110 Z" fill="#fff" stroke="#161616" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M94 110 q16 -8 32 0" fill="none" stroke="#b91c1c" stroke-width="2.4"/>
+                    <circle cx="110" cy="238" r="11" fill="#111"/><circle cx="110" cy="238" r="4" fill="#e11d2e"/>
+                    <path d="M110 248 v-8 M101 244 l6 -4 M119 244 l-6 -4" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spidey-tip" id="spideyTip">Gerakkan kursor atau miringkan HP agar foto berubah jadi Spider-Man</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

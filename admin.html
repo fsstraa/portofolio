@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | Fachry Satria Putra</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Georgia,'Times New Roman',serif;background:#070b16;color:#e9edf7;min-height:100vh;padding:26px 16px 60px}
+  h1{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:30px;letter-spacing:.3px;margin-bottom:4px}
+  .sub{color:#9aa4c0;font-size:13.5px;margin-bottom:26px}
+  .wrap{max-width:860px;margin:0 auto}
+  .card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:22px;margin-bottom:20px}
+  .card h2{font-size:15px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7d8cb3;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .card h2::before{content:'';width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#63e6ff,#8b7bff);flex:none}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row.g2{grid-template-columns:1fr}
+  label{display:block;font-size:12px;color:#9aa4c0;margin:0 0 5px;letter-spacing:.3px}
+  input,textarea{width:100%;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px}
+  input:focus,textarea:focus{border-color:#63e6ff}
+  textarea{min-height:76px;resize:vertical}
+  .btn{display:inline-block;border:0;cursor:pointer;border-radius:999px;padding:13px 26px;font-size:14px;font-family:inherit;font-weight:700;letter-spacing:.4px;transition:.25s;text-decoration:none}
+  .btn.pri{background:linear-gradient(120deg,#8b7bff,#63e6ff);color:#04131c}
+  .btn.pri:hover{filter:brightness(1.1);transform:translateY(-2px)}
+  .btn.ghost{background:rgba(255,255,255,.06);color:#cbd4ec;border:1px solid rgba(255,255,255,.15)}
+  .btn.danger{background:rgba(225,29,46,.16);color:#ff9aa6;border:1px solid rgba(225,29,46,.4)}
+  .acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .upload{display:flex;gap:14px;align-items:center;background:rgba(0,0,0,.22);border:1px dashed rgba(255,255,255,.18);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+  .upload img{width:62px;height:62px;object-fit:cover;border-radius:10px;background:#0a0d18}
+  .upload .uinfo{flex:1}
+  .upload label{padding:7px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;cursor:pointer;font-size:12.5px;color:#dfe6ff;display:inline-block}
+  .upload input[type=file]{display:none}
+  .hint{font-size:12px;color:#7d8cb3;margin:2px 0 8px;line-height:1.5}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#0f2a20;border:1px solid #22c55e;color:#b7f0cc;padding:12px 22px;border-radius:999px;font-size:13.5px;transition:.35s;z-index:60;opacity:0}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  .gate{position:fixed;inset:0;z-index:100;background:#070b16;display:flex;align-items:center;justify-content:center;padding:20px}
+  .gate .box{width:100%;max-width:360px;text-align:center}
+  .gate h1{font-size:24px}
+  .gate p{color:#9aa4c0;font-size:13px;margin:8px 0 18px}
+  .err{color:#ff9aa6;font-size:12.5px;height:16px}
+  .sec{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .sec input{flex:1;margin:0}
+  @media(max-width:640px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Admin Portofolio</h1>
+  <p class="sub">Edit biodata &amp; foto. Data tersimpan di browser ini (localStorage) dan langsung tampil di semua halaman situs.</p>
+
+  <!-- IDENTITAS -->
+  <div class="card">
+    <h2>Identitas &amp; Beranda</h2>
+    <div class="row">
+      <div><label>Nama lengkap</label><input id="nama" placeholder="Fachry Satria Putra"></div>
+      <div><label>Slogan / Badge</label><input id="badge" placeholder="Web Development · Builder · UI/UX Designer"></div>
+    </div>
+    <div class="row">
+      <div><label>Peran (typed, pisahkan dengan koma)</label><input id="roles" placeholder="Web Development, Builder, UI/UX Designer"></div>
+    </div>
+    <label>Deskripsi beranda</label>
+    <textarea id="desc"></textarea>
+    <label>Paragraf tentang (halaman Biodata)</label>
+    <textarea id="tentang"></textarea>
+    <div class="hint">Kosongkan field untuk memakai teks bawaan.</div>
+  </div>
+
+  <!-- KONTAK -->
+  <div class="card">
+    <h2>Kontak &amp; Sosial Media</h2>
+    <div class="row">
+      <div><label>Email</label><input id="email" placeholder="nama@gmail.com"></div>
+      <div><label>WhatsApp (teks tampil)</label><input id="wa" placeholder="+62 812-3456-7890"></div>
+      <div><label>No WhatsApp (link, angka saja)</label><input id="waL" placeholder="6281234567890"></div>
+      <div><label>Instagram (teks tampil)</label><input id="ig" placeholder="@username"></div>
+      <div><label>Link Instagram</label><input id="igL" placeholder="https://instagram.com/username"></div>
+      <div><label>GitHub (teks tampil)</label><input id="gh" placeholder="@username"></div>
+      <div><label>Link GitHub</label><input id="ghL" placeholder="https://github.com/username"></div>
+      <div><label>LinkedIn (teks tampil)</label><input id="li" placeholder="/in/username"></div>
+      <div><label>Link LinkedIn</label><input id="liL" placeholder="https://linkedin.com/in/username"></div>
+    </div>
+  </div>
+
+  <!-- BIODATA RINCI -->
+  <div class="card">
+    <h2>Biodata Rinci</h2>
+    <div class="row">
+      <div><label>Nama (baris "Nama Lengkap")</label><input id="nama_lengkap"></div>
+      <div><label>Tempat, tanggal lahir</label><input id="ttl" placeholder="Jakarta, 15 Mei 2000"></div>
+      <div><label>Domisili</label><input id="lokasi" placeholder="Depok, Jawa Barat"></div>
+      <div><label>Pendidikan</label><input id="pendidikan" placeholder="S1 Teknik Informatika"></div>
+      <div><label>Status</label><input id="status" placeholder="Freelancer &amp; Open to Work"></div>
+      <div><label>Bidang minat</label><input id="minat" placeholder="Web Dev, Builder, UI/UX"></div>
+    </div>
+  </div>
+
+  <!-- STATISTIK -->
+  <div class="card">
+    <h2>Angka Pencapaian</h2>
+    <div class="row">
+      <div><label>Stat 1 (angka)</label><input id="stat1" type="number"></div>
+      <div><label>Label 1</label><input id="lbl1"></div>
+      <div><label>Stat 2 (angka)</label><input id="stat2" type="number"></div>
+      <div><label>Label 2</label><input id="lbl2"></div>
+      <div><label>Stat 3 (angka)</label><input id="stat3" type="number"></div>
+      <div><label>Label 3</label><input id="lbl3"></div>
+      <div><label>Stat 4 (angka)</label><input id="stat4" type="number"></div>
+      <div><label>Label 4</label><input id="lbl4"></div>
+    </div>
+  </div>
+
+  <!-- FOTO -->
+  <div class="card">
+    <h2>Foto Profil</h2>
+    <div class="upload">
+      <img id="prv_fotoProfil" src="" alt="">
+      <div class="uinfo">
+        <label for="in_fotoProfil">Pilih Foto Profil</label>
+        <input type="file" id="in_fotoProfil" accept="image/*">
+        <div class="hint">Ukuran 420x420 atau lebih; otomatis dikompres ringan.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Foto Kegiatan (6 slot)</h2>
+    <div class="hint">Isi slot yang kamu mau. Foto kosong = tampil ilustrasi bawaan.</div>
+    <div id="kgSlots"></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="card">
+    <div class="acts">
+      <button class="btn pri" id="saveOpen">Simpan &amp; Buka Situs</button>
+      <button class="btn ghost" id="save">Simpan Saja</button>
+      <button class="btn danger" id="reset">Reset Data Admin</button>
+      <a class="btn ghost" href="index.html" target="_blank" rel="noopener">Buka Situs</a>
+    </div>
+    <div class="hint" style="margin-top:12px">Reset menghapus semua perubahan (termasuk foto) dan mengembalikan teks bawaan situs.</div>
+  </div>
+
+  <!-- PENGATURAN PASSWORD -->
+  <div class="card">
+    <h2>Keamanan</h2>
+    <div class="sec">
+      <input id="np" type="password" placeholder="Password baru">
+      <button class="btn ghost" id="setpass">Ganti Password</button>
+    </div>
+    <div class="hint">Halaman Admin dilindungi password. Default: <b>admin123</b>. Lupa password? Hapus data situs di browser (localStorage).</div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Tersimpan ✓</div>
+
+<!-- GATE -->
+<div class="gate" id="gate">
+  <div class="box">
+    <h1>Admin</h1>
+    <p>Masukkan password untuk mengelola portofolio.</p>
+    <input type="password" id="pass" placeholder="Password">
+    <div class="err" id="passErr"></div>
+    <button class="btn pri" id="btnPass" style="width:100%">Masuk</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var KEY='pfData',PASSK='pf_pass';
+
+  function getData(){var d={};try{d=JSON.parse(localStorage.getItem(KEY)||'null')||{}}catch(e){}return d}
+  function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},2600)}
+
+  /* ---- GATE ---- */
+  if(!localStorage.getItem(PASSK))localStorage.setItem(PASSK,'admin123');
+  if(sessionStorage.getItem('pf_auth')!=='1'){
+    $('#btnPass').addEventListener('click',function(){
+      if($('#pass').value===localStorage.getItem(PASSK)){sessionStorage.setItem('pf_auth','1');$('#gate').style.display='none'}
+      else $('#passErr').textContent='Password salah.';
+    });
+    $('#pass').addEventListener('keydown',function(e){if(e.key==='Enter')$('#btnPass').click()});
+  }else{$('#gate').style.display='none'}
+
+  /* ---- LOAD ---- */
+  var D=getData(),FIELDS=['nama','badge','roles','desc','tentang','email','wa','waL','ig','igL','gh','ghL','li','liL','nama_lengkap','ttl','lokasi','pendidikan','status','minat','stat1','stat2','stat3','stat4','lbl1','lbl2','lbl3','lbl4'];
+  FIELDS.forEach(function(k){var el=$('#'+k);if(el&&D[k]!=null)el.value=D[k]});
+
+  function fileToData(url,key,maxW){
+    var img=new Image();
+    img.onload=function(){
+      var sc=Math.min(1,maxW/Math.max(img.width,img.height));
+      var c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(img.width*sc));c.height=Math.max(1,Math.round(img.height*sc));
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      D[key]=c.toDataURL('image/jpeg',.82);
+      renderPreview(key,c.toDataURL('image/jpeg',.82));
+      toast('Foto '+key+' siap di simpan');
+    };
+    img.src=url;
+  }
+  function bindUpload(inputId,key,prvId,maxW){
+    var inp=$('#'+inputId);
+    inp.addEventListener('change',function(){
+      var f=inp.files&&inp.files[0];if(!f)return;
+      var rd=new FileReader();
+      rd.onload=function(){fileToData(rd.result,key,maxW)};
+      rd.readAsDataURL(f);
+    });
+    var el=$('#'+prvId);
+    if(el&&D[key])el.src=D[key];
+  }
+  function renderPreview(key,url){var el=$('#prv_'+key);if(el)el.src=url}
+  bindUpload('in_fotoProfil','fotoProfil','prv_fotoProfil',760);
+
+  /* ---- SLOT KEGIATAN ---- */
+  var kgKeys=['kg1','kg2','kg3','kg4','kg5','kg6'];
+  var kgNames=['1. Hackathon / Lomba','2. Workshop / Seminar','3. Bootcamp / Mentor','4. Meetup / Networking','5. Pameran / Expo','6. Kegiatan Sosial'];
+  var kgWrap=$('#kgSlots');
+  kgKeys.forEach(function(k,i){
+    var dv=document.createElement('div');dv.className='upload';dv.style.marginTop='6px';
+    dv.innerHTML='<img id="prv_'+k+'" alt=""><div class="uinfo">'+
+      '<label for="in_'+k+'">Pilih Foto — '+kgNames[i]+'</label><input type="file" id="in_'+k+'" accept="image/*">'+
+      '<input id="'+k+'t" placeholder="Judul kegiatan '+(i+1)+'" style="margin-top:8px">'+
+      '<input id="'+k+'d" placeholder="Deskripsi singkat '+(i+1)+'">'+
+      '</div>';
+    kgWrap.appendChild(dv);
+    if(D[k])$('#prv_'+k).src=D[k];
+    if(D[k+'t'])$('#'+k+'t').value=D[k+'t'];
+    if(D[k+'d'])$('#'+k+'d').value=D[k+'d'];
+    bindUpload('in_'+k,k,'prv_'+k,1100);
+  });
+
+  /* ---- SAVE ---- */
+  function collect(){
+    FIELDS.forEach(function(k){var v=$('#'+k).value.trim();if(v)D[k]=String(v)});
+    kgKeys.forEach(function(k){
+      var t=($('#'+k+'t').value||'').trim(),d=($('#'+k+'d').value||'').trim();
+      if(t)D[k+'t']=t;if(d)D[k+'d']=d;
+    });
+    if($('#roles').value.trim()){
+      D.roles=$('#roles').value.split(',').map(function(s){return s.trim()}).filter(Boolean);
+    }
+  }
+  function save(){
+    collect();
+    try{localStorage.setItem(KEY,JSON.stringify(D));return true}
+    catch(e){toast('Gagal: penyimpanan penuh (hapus foto lama dulu)');return false}
+  }
+  $('#save').addEventListener('click',function(){if(save())toast('Tersimpan ✓')});
+  $('#saveOpen').addEventListener('click',function(){if(save())window.open('index.html','_blank')});
+  $('#reset').addEventListener('click',function(){
+    if(!confirm('Yakin reset semua data admin? Foto & teks kembali ke bawaan.'))return;
+    localStorage.removeItem(KEY);location.reload();
+  });
+  $('#setpass').addEventListener('click',function(){
+    var v=$('#np').value.trim();
+    if(v.length<4){toast('Password minimal 4 karakter');return}
+    localStorage.setItem(PASSK,v);$('#np').value='';toast('Password diganti ✓');
+  });
+})();
+</script>
+</body>
+</html>
