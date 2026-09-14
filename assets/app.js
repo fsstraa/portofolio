@@ -5,11 +5,11 @@
   var PAGES=[
     {key:'index',     file:'index.html',     label:'Beranda',    year:'2025', name:'Era AI Generatif',      color:'#ff2d8f', anim:'zoom'},
     {key:'biodata',   file:'biodata.html',   label:'Biodata',    year:'2015', name:'Era Deep Learning',     color:'#00e0c6', anim:'right'},
-    {key:'keahlian',  file:'keahlian.html',  label:'Keahlian',   year:'2006', name:'Era Machine Learning',  color:'#3b82f6', anim:'zoom'},
+    {key:'keahlian',  file:'keahlian.html',  label:'Keahlian',   year:'2006', name:'Era Machine Learning',  color:'#3b82f6', anim:'flipv'},
     {key:'proyek',    file:'proyek.html',    label:'Proyek',     year:'1997', name:'Era Deep Blue',         color:'#22c55e', anim:'left'},
     {key:'kegiatan',  file:'kegiatan.html',  label:'Kegiatan',   year:'1986', name:'Era Sistem Pakar',      color:'#f59e0b', anim:'zoom'},
     {key:'pencapaian',file:'pencapaian.html',label:'Pencapaian', year:'1966', name:'Era Logika & ELIZA',    color:'#a78bfa', anim:'tilt'},
-    {key:'kontak',    file:'kontak.html',    label:'Kontak',     year:'1950', name:'Kelahiran AI - Turing', color:'#e0b060', anim:'fade'}
+    {key:'kontak',    file:'kontak.html',    label:'Kontak',     year:'1950', name:'Kelahiran AI - Turing', color:'#e0b060', anim:'spin'}
   ];
 
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -106,7 +106,7 @@
   if(slideDir){
     document.body.classList.add('en-'+slideAnim);
     setTimeout(function(){
-      ['en-zoom','en-right','en-left','en-fade','en-tilt','ex-zoom','ex-right','ex-left','ex-fade','ex-tilt']
+      ['en-zoom','en-right','en-left','en-fade','en-tilt','en-flipv','en-spin','ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin']
         .forEach(function(c){document.body.classList.remove(c)});
     },620);
   }
@@ -155,7 +155,7 @@
     sessionStorage.setItem('pf_dir',dir);
     sessionStorage.setItem('pf_anim',anim);
     showPV(t);
-    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt'].forEach(function(c){document.body.classList.remove(c)});
+    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin'].forEach(function(c){document.body.classList.remove(c)});
     document.body.classList.add('ex-'+anim);
     setTimeout(function(){location.href=t.file},reduce?0:320);
   }

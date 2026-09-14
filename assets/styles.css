@@ -334,11 +334,15 @@ body.en-right #page{animation:frIn .5s cubic-bezier(.19,.73,.24,1) both}
 body.en-left #page{animation:flIn .5s cubic-bezier(.19,.73,.24,1) both}
 body.en-fade #page{animation:fdIn .52s ease both}
 body.en-tilt #page{animation:tlIn .55s cubic-bezier(.22,.68,.2,1) both}
+body.en-flipv #page{animation:flpIn .55s cubic-bezier(.22,.68,.2,1) both}
+body.en-spin #page{animation:spIn .55s cubic-bezier(.2,.72,.24,1) both}
 body.ex-zoom #page{animation:pzOut .24s cubic-bezier(.55,0,.55,.25) both}
 body.ex-right #page{animation:flOut .24s cubic-bezier(.55,0,.55,.25) both}
 body.ex-left #page{animation:frOut .24s cubic-bezier(.55,0,.55,.25) both}
 body.ex-fade #page{animation:fdOut .22s ease both}
 body.ex-tilt #page{animation:tlOut .26s cubic-bezier(.55,0,.55,.25) both}
+body.ex-flipv #page{animation:flpOut .26s cubic-bezier(.55,0,.55,.25) both}
+body.ex-spin #page{animation:spOut .26s cubic-bezier(.55,0,.55,.25) both}
 @keyframes pzIn{from{transform:scale(.955) translateY(18px);opacity:0}to{transform:none;opacity:1}}
 @keyframes pzOut{to{transform:scale(1.055) translateY(-8px);opacity:0}}
 @keyframes frIn{from{transform:translateX(9vw);opacity:0}to{transform:none;opacity:1}}
@@ -349,6 +353,10 @@ body.ex-tilt #page{animation:tlOut .26s cubic-bezier(.55,0,.55,.25) both}
 @keyframes fdOut{to{opacity:0}}
 @keyframes tlIn{from{transform:perspective(1200px) rotateY(14deg) translateX(-26px) scale(.98);opacity:0}to{transform:none;opacity:1}}
 @keyframes tlOut{to{transform:perspective(1200px) rotateY(-12deg) scale(1.04);opacity:0}}
+@keyframes flpIn{from{transform:perspective(1200px) rotateX(-16deg) translateY(-34px);opacity:0}to{transform:none;opacity:1}}
+@keyframes flpOut{to{transform:perspective(1200px) rotateX(12deg) translateY(28px);opacity:0}}
+@keyframes spIn{from{transform:perspective(1200px) rotateY(-22deg) scale(.94);opacity:0}to{transform:none;opacity:1}}
+@keyframes spOut{to{transform:perspective(1200px) rotateY(16deg) scale(1.06);opacity:0}}
 
 /* ---------- POPUP HALAMAN ---------- */
 .pv{position:fixed;top:50%;left:50%;z-index:75;pointer-events:none;text-align:center;transform:translate(-50%,-50%) scale(.82);opacity:0;
