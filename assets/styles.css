@@ -14,6 +14,21 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font)}
 ::selection{background:var(--pg,#e11d2e);color:#fff}
+/* sentuhan Sylva: backdrop hijau-gelap saat halaman dibuka di atas scene beranda */
+body.sylva-frame::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 88% -12%,rgba(56,74,42,.55),transparent 60%),
+    radial-gradient(760px 480px at -10% 108%,rgba(36,46,30,.65),transparent 55%),
+    linear-gradient(180deg,#1b2517,#12190f);
+}
+body.sylva-frame{background:#171f13}
+body.sylva-frame #page, body.sylva-frame main{position:relative;z-index:3}
+/* navigasi & arah halaman disembunyikan: keluar-masuk lewat overlay beranda */
+body.sylva-frame #navShell,
+body.sylva-frame .nav-btn,
+body.sylva-frame .burger,
+body.sylva-frame .hint-pop{ display:none !important; }
 body{
   font-family:var(--font);color:var(--txt);min-height:100vh;overflow-x:hidden;
   background-attachment:fixed;
