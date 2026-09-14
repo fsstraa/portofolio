@@ -140,6 +140,19 @@
     <div class="hint" style="margin-top:12px">Reset menghapus semua perubahan (termasuk foto) dan mengembalikan teks bawaan situs.</div>
   </div>
 
+  <!-- PENGATURAN GITHUB -->
+  <div class="card">
+    <h2>Simpan Permanen (Lintas Device)</h2>
+    <div class="hint">Agar hasil edit tersimpan permanen dan tampil di HP/laptop mana pun, admin menyimpan data ke file <b>pfdata.json</b> di repo GitHub kamu. Isi informasi repo &amp; token sekali saja (disimpan browser ini).</div>
+    <div class="row">
+      <div><label>Owner (username GitHub)</label><input id="g_owner" placeholder="fsstraa"></div>
+      <div><label>Repository</label><input id="g_repo" placeholder="portofolio"></div>
+      <div><label>Branch</label><input id="g_branch" placeholder="main"></div>
+      <div><label>File data</label><input id="g_file" placeholder="pfdata.json"></div>
+    </div>
+    <div class="row g2"><div><label>Personal Access Token (scope: repo / public_repo)</label><input id="g_token" type="password" placeholder="ghp_xxxxxxxxxxxx"><div class="hint" style="margin:6px 0 0">Buat di github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → beri scope <b>repo</b> (repo publik cukup <b>public_repo</b>).</div></div></div>
+  </div>
+
   <!-- PENGATURAN PASSWORD -->
   <div class="card">
     <h2>Keamanan</h2>
@@ -194,7 +207,7 @@
       var c=document.createElement('canvas');
       c.width=Math.max(1,Math.round(img.width*sc));c.height=Math.max(1,Math.round(img.height*sc));
       c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-      D[key]=c.toDataURL('image/jpeg',.82);
+      D[key]=c.toDataURL('image/jpeg',.78);
       renderPreview(key,c.toDataURL('image/jpeg',.82));
       toast('Foto '+key+' siap di simpan');
     };
@@ -212,7 +225,7 @@
     if(el&&D[key])el.src=D[key];
   }
   function renderPreview(key,url){var el=$('#prv_'+key);if(el)el.src=url}
-  bindUpload('in_fotoProfil','fotoProfil','prv_fotoProfil',760);
+  bindUpload('in_fotoProfil','fotoProfil','prv_fotoProfil',560);
 
   /* ---- SLOT KEGIATAN ---- */
   var kgKeys=['kg1','kg2','kg3','kg4','kg5','kg6'];
@@ -229,8 +242,26 @@
     if(D[k])$('#prv_'+k).src=D[k];
     if(D[k+'t'])$('#'+k+'t').value=D[k+'t'];
     if(D[k+'d'])$('#'+k+'d').value=D[k+'d'];
-    bindUpload('in_'+k,k,'prv_'+k,1100);
+    bindUpload('in_'+k,k,'prv_'+k,900);
   });
+
+  /* ---- GITHUB ---- */
+  var GKEY='pf_gh';
+  function loadGh(){var g={};try{g=JSON.parse(localStorage.getItem(GKEY)||'null')||{}}catch(e){}return g}
+  var G0=loadGh();
+  ['g_owner','g_repo','g_branch','g_file'].forEach(function(id){
+    var k=id.slice(2),el=$('#'+id);
+    if(el){if(G0[k]!=null)el.value=G0[k];el.addEventListener('change',persistGh)}
+  });
+  if($('#g_token')&&G0.token)$('#g_token').value=G0.token;
+  $('#g_token').addEventListener('change',persistGh);
+  function persistGh(){
+    var g={};
+    ['owner','repo','branch','file'].forEach(function(k){var v=$('#g_'+k).value.trim();if(v)g[k]=v});
+    var t=$('#g_token').value.trim();if(t)g.token=t;
+    try{localStorage.setItem(GKEY,JSON.stringify(g))}catch(e){}
+  }
+  function b64(s){try{return btoa(unescape(encodeURIComponent(s)))}catch(e){return btoa(s)}}
 
   /* ---- SAVE ---- */
   function collect(){
@@ -243,13 +274,31 @@
       D.roles=$('#roles').value.split(',').map(function(s){return s.trim()}).filter(Boolean);
     }
   }
+  function saveToGitHub(){
+    var g=loadGh();if(!g.token||!g.repo)return Promise.resolve('local');
+    var api='https://api.github.com/repos/'+(g.owner||'fsstraa')+'/'+g.repo+'/contents/'+(g.file||'pfdata.json');
+    return fetch(api,{method:'GET',headers:{'Authorization':'Bearer '+g.token,'Accept':'application/vnd.github+json'}})
+      .then(function(r){return r.ok?r.json():null})
+      .then(function(cur){
+        var body={message:'Update data portofolio via admin',content:b64(JSON.stringify(D)),branch:(g.branch||'main')};
+        if(cur&&cur.sha)body.sha=cur.sha;
+        return fetch(api,{method:'PUT',headers:{'Authorization':'Bearer '+g.token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+      })
+      .then(function(r){return (r&&r.ok)?'github':'fail'})
+      .catch(function(){return 'fail'});
+  }
   function save(){
     collect();
-    try{localStorage.setItem(KEY,JSON.stringify(D));return true}
-    catch(e){toast('Gagal: penyimpanan penuh (hapus foto lama dulu)');return false}
+    var okLocal=true;
+    try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){okLocal=false}
+    return saveToGitHub().then(function(st){
+      if(st==='github')toast('Tersimpan permanen di GitHub ✓');
+      else if(st==='fail')toast('Gagal simpan ke GitHub (cek token). Tersimpan lokal saja.');
+      else toast(okLocal?'Tersimpan lokal ✓':'Gagal simpan lokal');
+    });
   }
-  $('#save').addEventListener('click',function(){if(save())toast('Tersimpan ✓')});
-  $('#saveOpen').addEventListener('click',function(){if(save())window.open('index.html','_blank')});
+  $('#save').addEventListener('click',function(){save()});
+  $('#saveOpen').addEventListener('click',function(){save().then(function(){window.open('index.html','_blank')})});
   $('#reset').addEventListener('click',function(){
     if(!confirm('Yakin reset semua data admin? Foto & teks kembali ke bawaan.'))return;
     localStorage.removeItem(KEY);location.reload();

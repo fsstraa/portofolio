@@ -33,6 +33,17 @@
     waL:PFL.waL||'6281234567890', wa:PFL.wa||'+62 812-3456-7890'
   };
   var NAMA=PFL.nama||'Fachry Satria Putra';
+  var GH={owner:'fsstraa',repo:'portofolio',branch:'main',file:'pfdata.json'};
+  function buildDH(){
+    return {
+      igL:PFL.igL||'https://instagram.com/rizky.pratama', ig:PFL.ig||'@rizky.pratama',
+      ghL:PFL.ghL||'https://github.com/rizkypratama', gh:PFL.gh||'@rizkypratama',
+      liL:PFL.liL||'https://linkedin.com/in/rizkypratama', li:PFL.li||'/in/rizkypratama',
+      em:PFL.email||'rizky.pratama@gmail.com',
+      waL:PFL.waL||'6281234567890', wa:PFL.wa||'+62 812-3456-7890'
+    };
+  }
+  DH=buildDH();
 
   /* ---------- ICON SOSMED ---------- */
   var IC={
@@ -42,11 +53,14 @@
     gm:'<svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>',
     wa:'<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'
   };
-  var SOC='<a class="soc ig" href="'+DH.igL+'" target="_blank" rel="noopener" aria-label="Instagram">'+IC.ig+'</a>'+
-          '<a class="soc gh" href="'+DH.ghL+'" target="_blank" rel="noopener" aria-label="GitHub">'+IC.gh+'</a>'+
-          '<a class="soc lk" href="'+DH.liL+'" target="_blank" rel="noopener" aria-label="LinkedIn">'+IC.lk+'</a>'+
-          '<a class="soc gm" href="mailto:'+DH.em+'" aria-label="Email">'+IC.gm+'</a>'+
-          '<a class="soc wa" href="https://wa.me/'+DH.waL+'" target="_blank" rel="noopener" aria-label="WhatsApp">'+IC.wa+'</a>';
+  function buildSOC(){
+    return '<a class="soc ig" href="'+DH.igL+'" target="_blank" rel="noopener" aria-label="Instagram">'+IC.ig+'</a>'+
+           '<a class="soc gh" href="'+DH.ghL+'" target="_blank" rel="noopener" aria-label="GitHub">'+IC.gh+'</a>'+
+           '<a class="soc lk" href="'+DH.liL+'" target="_blank" rel="noopener" aria-label="LinkedIn">'+IC.lk+'</a>'+
+           '<a class="soc gm" href="mailto:'+DH.em+'" aria-label="Email">'+IC.gm+'</a>'+
+           '<a class="soc wa" href="https://wa.me/'+DH.waL+'" target="_blank" rel="noopener" aria-label="WhatsApp">'+IC.wa+'</a>';
+  }
+  var SOC=buildSOC();
 
   /* ---------- INJECT NAV / FOOTER / ARAH ---------- */
   document.body.insertAdjacentHTML('afterbegin',
@@ -177,16 +191,45 @@
   }catch(e){}}
 
   /* ---------- TERAPKAN DATA ADMIN ---------- */
-  if(PFL&&JSON.stringify(PFL)!=='{}'){
-    $$('[data-pf]').forEach(function(el){var k=el.getAttribute('data-pf'),v=PFL[k];if(v!=null&&String(v).trim()!=='')el.textContent=String(v)});
-    $$('[data-pf-lk]').forEach(function(el){var k=el.getAttribute('data-pf-lk');var v=(k==='email')?('mailto:'+(PFL.email||DH.em)):(PFL[k+'L']||'');if(v&&String(v).trim()!=='')el.setAttribute('href',v)});
-    $$('[data-pf-i]').forEach(function(el){
-      var k=el.getAttribute('data-pf-i'),v=PFL[k];
-      if(v&&String(v).indexOf('data:')===0){el.src=v;var bg=el.closest('.ph,.ab-ph');if(bg)$$('.ph-bg',bg).forEach(function(b){b.classList.add('gone')})}
-    });
-    $$('[data-pf-num]').forEach(function(el){var k=el.getAttribute('data-pf-num'),v=parseInt(PFL[k],10);if(!isNaN(v))el.dataset.to=v});
-    $$('[data-pf-lbl]').forEach(function(el){var v=PFL[el.getAttribute('data-pf-lbl')];if(v!=null&&String(v).trim()!=='')el.textContent=String(v)});
+  function applyPF(){
+    if(PFL&&JSON.stringify(PFL)!=='{}'){
+      $$('[data-pf]').forEach(function(el){var k=el.getAttribute('data-pf'),v=PFL[k];if(v!=null&&String(v).trim()!=='')el.textContent=String(v)});
+      $$('[data-pf-lk]').forEach(function(el){var k=el.getAttribute('data-pf-lk');var v=(k==='email')?('mailto:'+(PFL.email||DH.em)):(PFL[k+'L']||'');if(v&&String(v).trim()!=='')el.setAttribute('href',v)});
+      $$('[data-pf-i]').forEach(function(el){
+        var k=el.getAttribute('data-pf-i'),v=PFL[k];
+        if(v&&String(v).indexOf('data:')===0){el.src=v;var bg=el.closest('.ph,.ab-ph');if(bg)$$('.ph-bg',bg).forEach(function(b){b.classList.add('gone')})}
+      });
+      $$('[data-pf-num]').forEach(function(el){var k=el.getAttribute('data-pf-num'),v=parseInt(PFL[k],10);if(!isNaN(v))el.dataset.to=v});
+      $$('[data-pf-lbl]').forEach(function(el){var v=PFL[el.getAttribute('data-pf-lbl')];if(v!=null&&String(v).trim()!=='')el.textContent=String(v)});
+    }
   }
+  applyPF();
+
+  /* ---------- AMBIL DATA DARI GITHUB (lintas device) ---------- */
+  function loadRemote(){
+    try{
+      fetch('https://raw.githubusercontent.com/'+GH.owner+'/'+GH.repo+'/'+GH.branch+'/'+GH.file+'?t='+Date.now(),{cache:'no-store'})
+        .then(function(r){if(!r.ok)throw 0;return r.json()})
+        .then(function(j){
+          if(!j||typeof j!=='object')return;
+          PFL=j;
+          DH=buildDH();
+          NAMA=PFL.nama||NAMA;
+          SOC=buildSOC();
+          try{localStorage.setItem('pfData',JSON.stringify(PFL))}catch(e){}
+          var hS=$('#heroSoc');if(hS)hS.innerHTML=SOC;
+          var ft=$('footer');
+          if(ft){
+            var fb=ft.querySelector('b');if(fb)fb.textContent=NAMA;
+            var fS=ft.querySelector('.socials');if(fS)fS.innerHTML=SOC;
+            var fP=ft.querySelector('p');if(fP&&PFL.badge)fP.innerHTML='Portofolio 3D ringan - HTML + CSS + JavaScript.<br>Copyright &copy; 2026 <b>'+NAMA+'</b> &middot; '+PFL.badge;
+          }
+          applyPF();
+        })
+        .catch(function(){});
+    }catch(e){}
+  }
+  loadRemote();
 
   /* ---------- REVEAL ---------- */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
