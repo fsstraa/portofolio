@@ -325,6 +325,7 @@
       if(on!==flipNow){
         flipNow=on;
         card.classList.toggle('spidey',on);
+        var fl=$('#flip');if(fl)fl.style.setProperty('--flip',on?'180deg':'0deg');
         tip.classList.toggle('hot',on);
         tip.innerHTML=on?'Spider-Man muncul! Geser/kembalikan ke tengah untuk kembali.':'Gerakkan kursor atau miringkan HP agar foto berubah jadi Spider-Man';
         if(on){var R=scene.getBoundingClientRect();window.webBurst(R.left+R.width/2,R.top+R.height/2)}
