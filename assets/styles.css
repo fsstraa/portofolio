@@ -329,50 +329,61 @@ body[data-page="index"] .soc{border-radius:50%;width:42px;height:42px;background
 body:not(.nav-visible) .nav-btn{opacity:0;transform:translateY(16px);pointer-events:none}
 
 /* ---------- SLIDE TRANSITIONS (variasi ala Kage) ---------- */
-body.en-zoom #page{animation:pzIn .5s cubic-bezier(.19,.73,.24,1) both}
-body.en-right #page{animation:frIn .5s cubic-bezier(.19,.73,.24,1) both}
-body.en-left #page{animation:flIn .5s cubic-bezier(.19,.73,.24,1) both}
-body.en-fade #page{animation:fdIn .52s ease both}
-body.en-tilt #page{animation:tlIn .55s cubic-bezier(.22,.68,.2,1) both}
-body.en-flipv #page{animation:flpIn .55s cubic-bezier(.22,.68,.2,1) both}
-body.en-spin #page{animation:spIn .55s cubic-bezier(.2,.72,.24,1) both}
-body.ex-zoom #page{animation:pzOut .24s cubic-bezier(.55,0,.55,.25) both}
-body.ex-right #page{animation:flOut .24s cubic-bezier(.55,0,.55,.25) both}
-body.ex-left #page{animation:frOut .24s cubic-bezier(.55,0,.55,.25) both}
-body.ex-fade #page{animation:fdOut .22s ease both}
-body.ex-tilt #page{animation:tlOut .26s cubic-bezier(.55,0,.55,.25) both}
-body.ex-flipv #page{animation:flpOut .26s cubic-bezier(.55,0,.55,.25) both}
-body.ex-spin #page{animation:spOut .26s cubic-bezier(.55,0,.55,.25) both}
+body.en-zoom #page{animation:pzIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-right #page{animation:frIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-left #page{animation:flIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-fade #page{animation:fdIn .58s ease both}
+body.en-tilt #page{animation:tlIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-flipv #page{animation:flpIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-spin #page{animation:spIn .58s cubic-bezier(.2,.72,.24,1) both}
+body.en-up #page{animation:upIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-shear #page{animation:shIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.en-scale #page{animation:scIn .58s cubic-bezier(.2,.65,.28,1) both}
+body.ex-zoom #page{animation:pzOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-right #page{animation:flOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-left #page{animation:frOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-fade #page{animation:fdOut .28s ease both}
+body.ex-tilt #page{animation:tlOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-flipv #page{animation:flpOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-spin #page{animation:spOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-up #page{animation:upOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-shear #page{animation:shOut .3s cubic-bezier(.55,0,.55,.25) both}
+body.ex-scale #page{animation:scOut .3s cubic-bezier(.55,0,.55,.25) both}
 @keyframes pzIn{from{transform:scale(.955) translateY(18px);opacity:0}to{transform:none;opacity:1}}
-@keyframes pzOut{to{transform:scale(1.055) translateY(-8px);opacity:0}}
-@keyframes frIn{from{transform:translateX(9vw);opacity:0}to{transform:none;opacity:1}}
-@keyframes flIn{from{transform:translateX(-9vw);opacity:0}to{transform:none;opacity:1}}
-@keyframes frOut{to{transform:translateX(-9vw);opacity:0}}
-@keyframes flOut{to{transform:translateX(9vw);opacity:0}}
+@keyframes pzOut{to{transform:scale(1.045) translateY(-8px);opacity:0}}
+@keyframes frIn{from{transform:translateX(8vw);opacity:0}to{transform:none;opacity:1}}
+@keyframes flIn{from{transform:translateX(-8vw);opacity:0}to{transform:none;opacity:1}}
+@keyframes frOut{to{transform:translateX(-8vw);opacity:0}}
+@keyframes flOut{to{transform:translateX(8vw);opacity:0}}
 @keyframes fdIn{from{opacity:0}to{opacity:1}}
 @keyframes fdOut{to{opacity:0}}
-@keyframes tlIn{from{transform:perspective(1200px) rotateY(14deg) translateX(-26px) scale(.98);opacity:0}to{transform:none;opacity:1}}
-@keyframes tlOut{to{transform:perspective(1200px) rotateY(-12deg) scale(1.04);opacity:0}}
-@keyframes flpIn{from{transform:perspective(1200px) rotateX(-16deg) translateY(-34px);opacity:0}to{transform:none;opacity:1}}
-@keyframes flpOut{to{transform:perspective(1200px) rotateX(12deg) translateY(28px);opacity:0}}
-@keyframes spIn{from{transform:perspective(1200px) rotateY(-22deg) scale(.94);opacity:0}to{transform:none;opacity:1}}
-@keyframes spOut{to{transform:perspective(1200px) rotateY(16deg) scale(1.06);opacity:0}}
+@keyframes tlIn{from{transform:perspective(1200px) rotateY(12deg) translateX(-22px) scale(.985);opacity:0}to{transform:none;opacity:1}}
+@keyframes tlOut{to{transform:perspective(1200px) rotateY(-10deg) scale(1.03);opacity:0}}
+@keyframes flpIn{from{transform:perspective(1200px) rotateX(-13deg) translateY(-30px);opacity:0}to{transform:none;opacity:1}}
+@keyframes flpOut{to{transform:perspective(1200px) rotateX(10deg) translateY(24px);opacity:0}}
+@keyframes spIn{from{transform:perspective(1200px) rotateY(-18deg) scale(.96);opacity:0}to{transform:none;opacity:1}}
+@keyframes spOut{to{transform:perspective(1200px) rotateY(14deg) scale(1.04);opacity:0}}
+@keyframes upIn{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes upOut{to{transform:translateY(-32px);opacity:0}}
+@keyframes shIn{from{transform:translateX(-40px) skewX(-8deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes shOut{to{transform:translateX(40px) skewX(8deg);opacity:0}}
+@keyframes scIn{from{transform:scaleX(.87);opacity:0}to{transform:none;opacity:1}}
+@keyframes scOut{to{transform:scaleX(1.05);opacity:0}}
 
-/* ---------- EFEK TRANSISI (asap putih & ombak laut) ---------- */
+/* ---------- EFEK TRANSISI (asap putih & ombak laut - kalem) ---------- */
 .fx{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden;opacity:1}
 .fx.smoke{background:
-  radial-gradient(38% 44% at 26% 72%,rgba(255,255,255,.30),transparent 70%),
-  radial-gradient(46% 42% at 66% 28%,rgba(255,255,255,.24),transparent 72%),
-  radial-gradient(40% 46% at 88% 64%,rgba(255,255,255,.18),transparent 72%),
-  linear-gradient(180deg,rgba(235,240,248,.06),transparent 60%);
-  animation:smokeClear 1.15s cubic-bezier(.3,.5,.3,1) forwards}
-@keyframes smokeClear{from{opacity:.9;transform:translateX(-5%) scale(.985)}to{opacity:0;transform:translateX(7%) scale(1.03)}}
+  radial-gradient(34% 40% at 28% 74%,rgba(255,255,255,.16),transparent 72%),
+  radial-gradient(42% 38% at 64% 26%,rgba(255,255,255,.12),transparent 74%),
+  radial-gradient(36% 42% at 88% 66%,rgba(255,255,255,.09),transparent 74%);
+  animation:smokeClear 1.5s cubic-bezier(.36,.46,.32,1) forwards}
+@keyframes smokeClear{from{opacity:.8;transform:translateX(-3%) scale(.99)}to{opacity:0;transform:translateX(4%) scale(1.02)}}
 .fx.wave{background:
-  repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,255,255,.11) 46px 64px,transparent 64px 140px),
-  repeating-linear-gradient(112deg,transparent 0 100px,rgba(255,255,255,.07) 100px 130px,transparent 130px 230px),
-  linear-gradient(180deg,rgba(64,120,190,.16),rgba(6,34,66,.38));
-  animation:waveUp 1.25s cubic-bezier(.32,.62,.4,1) forwards}
-@keyframes waveUp{from{transform:translateY(0) skewX(-5deg)}to{transform:translateY(-100%) skewX(-9deg)}}
+  repeating-linear-gradient(115deg,transparent 0 52px,rgba(255,255,255,.06) 52px 66px,transparent 66px 150px),
+  repeating-linear-gradient(112deg,transparent 0 110px,rgba(255,255,255,.04) 110px 136px,transparent 136px 240px),
+  linear-gradient(180deg,rgba(70,120,180,.09),rgba(8,36,66,.22));
+  animation:waveUp 1.7s cubic-bezier(.36,.5,.34,1) forwards}
+@keyframes waveUp{from{transform:translateY(0) skewX(-3deg)}to{transform:translateY(-100%) skewX(-6deg)}}
 
 /* ---------- HINT POPUP (geser / ketuk 2x) ---------- */
 .hint-pop{position:fixed;left:50%;bottom:96px;z-index:74;transform:translate(-50%,16px) scale(.94);opacity:0;pointer-events:none;

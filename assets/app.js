@@ -102,37 +102,45 @@
 
   /* ---------- EFEK TRANSISI (asap / ombak) ---------- */
   function fxOf(a){return (a==='wave'||a==='smoke')?a:null}
+  function pageCls(a){return (a==='wave'||a==='smoke')?'fade':a}
   function showFX(type){
     var f=document.createElement('div');
     f.className='fx fx-'+type;
     document.body.appendChild(f);
-    setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f)},1600);
+    setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f)},1900);
   }
 
-  /* ---------- SLIDE NAVIGASI (variasi ala Kage) ---------- */
+  /* ---------- SLIDE NAVIGASI (variasi bergilir ala Kage) ---------- */
+  var ANIMS=['zoom','right','flipv','left','wave','smoke','spin','up','shear','scale'];
+  var navCount=parseInt(sessionStorage.getItem('pf_n')||'0',10);
+  function pickAnim(t){
+    var base=ANIMS.indexOf(t.anim);if(base<0)base=0;
+    return ANIMS[(base+navCount)%ANIMS.length];
+  }
   var slideDir=sessionStorage.getItem('pf_dir'),slideAnim=sessionStorage.getItem('pf_anim')||'zoom';
   sessionStorage.removeItem('pf_dir');sessionStorage.removeItem('pf_anim');
   if(slideDir){
-    var pgEn=(slideAnim==='wave'||slideAnim==='smoke')?'fade':slideAnim;
-    document.body.classList.add('en-'+pgEn);
+    document.body.classList.add('en-'+pageCls(slideAnim));
     var fxEn=fxOf(slideAnim);if(fxEn)showFX(fxEn);
     setTimeout(function(){
-      ['en-zoom','en-right','en-left','en-fade','en-tilt','en-flipv','en-spin','ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin']
+      ['en-zoom','en-right','en-left','en-fade','en-tilt','en-flipv','en-spin','en-up','en-shear','en-scale',
+       'ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin','ex-up','ex-shear','ex-scale']
         .forEach(function(c){document.body.classList.remove(c)});
-    },620);
+    },720);
   }
 
   function go(i,dir){
     var t=PAGES[(i+PAGES.length)%PAGES.length];
     if(t.file===CP.file)return;
-    var anim=(PAGES[i]&&PAGES[i].anim)||'zoom';
-    var pg=(anim==='wave'||anim==='smoke')?'fade':anim;
+    var anim=pickAnim(t);
+    navCount++;try{sessionStorage.setItem('pf_n',String(navCount))}catch(e){}
     sessionStorage.setItem('pf_dir',dir);
     sessionStorage.setItem('pf_anim',anim);
     var fx=fxOf(anim);if(fx)showFX(fx);
-    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin'].forEach(function(c){document.body.classList.remove(c)});
-    document.body.classList.add('ex-'+pg);
-    setTimeout(function(){location.href=t.file},reduce?0:320);
+    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin','ex-up','ex-shear','ex-scale']
+      .forEach(function(c){document.body.classList.remove(c)});
+    document.body.classList.add('ex-'+pageCls(anim));
+    setTimeout(function(){location.href=t.file},reduce?0:360);
   }
 
   function showHint(msg){
