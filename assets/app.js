@@ -100,16 +100,28 @@
     $$('#navShell ul a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open')})});
   }
 
-  /* ---------- SLIDE NAVIGASI (gerak ke samping) ---------- */
+  /* ---------- SLIDE NAVIGASI (zoom + popup) ---------- */
   var slideFrom=sessionStorage.getItem('pf_dir');sessionStorage.removeItem('pf_dir');
-  if(slideFrom){document.body.classList.add(slideFrom==='prev'?'entering-l':'entering-r');setTimeout(function(){document.body.classList.remove('entering-l','entering-r')},520)}
+  if(slideFrom){document.body.classList.add('entering-r');setTimeout(function(){document.body.classList.remove('entering-r','entering-l')},520)}
+
+  function showPV(p){
+    if(reduce)return;
+    var old=$('.pv');if(old)old.remove();
+    var d=document.createElement('div');d.className='pv';
+    var n=PAGES.indexOf(p);
+    var num=String(n<0?0:n+1).padStart((PAGES.length+'').length,'0');
+    d.innerHTML='<em class="k">Menuju</em><b>'+num+'</b><span>'+p.label+'</span>';
+    document.body.appendChild(d);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('go')})});
+  }
 
   function go(i,dir){
     var t=PAGES[(i+PAGES.length)%PAGES.length];
     if(t.file===CP.file)return;
     sessionStorage.setItem('pf_dir',dir);
+    showPV(t);
     document.body.classList.add(dir==='next'?'exiting-r':'exiting-l');
-    setTimeout(function(){location.href=t.file},reduce?0:220);
+    setTimeout(function(){location.href=t.file},reduce?0:320);
   }
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[data-slide]');
