@@ -256,7 +256,8 @@
       $$('[data-pf-lk]').forEach(function(el){var k=el.getAttribute('data-pf-lk');var v=(k==='email')?('mailto:'+(PFL.email||DH.em)):(PFL[k+'L']||'');if(v&&String(v).trim()!=='')el.setAttribute('href',v)});
       $$('[data-pf-i]').forEach(function(el){
         var k=el.getAttribute('data-pf-i'),v=PFL[k];
-        if(v&&String(v).indexOf('data:')===0){el.src=v;var bg=el.closest('.ph,.ab-ph');if(bg)$$('.ph-bg',bg).forEach(function(b){b.classList.add('gone')})}
+        if(v&&String(v).indexOf('data:')===0){el.src=v;var bg=el.closest('.ph,.ab-ph,.face');if(bg)$$('.ph-bg',bg).forEach(function(b){b.classList.add('gone')});
+          if(el.classList.contains('face-photo')){el.closest('.face').classList.add('has-photo');$$('svg',el.closest('.face')).forEach(function(s){s.classList.add('gone')})}}
       });
       $$('[data-pf-num]').forEach(function(el){var k=el.getAttribute('data-pf-num'),v=parseInt(PFL[k],10);if(!isNaN(v))el.dataset.to=v});
       $$('[data-pf-lbl]').forEach(function(el){var v=PFL[el.getAttribute('data-pf-lbl')];if(v!=null&&String(v).trim()!=='')el.textContent=String(v)});

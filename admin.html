@@ -124,6 +124,18 @@
   </div>
 
   <div class="card">
+    <h2>Foto Beranda (Kartu 3D)</h2>
+    <div class="upload">
+      <img id="prv_fotoBeranda" src="" alt="">
+      <div class="uinfo">
+        <label for="in_fotoBeranda">Pilih Foto Beranda</label>
+        <input type="file" id="in_fotoBeranda" accept="image/*">
+        <div class="hint">Tampil di kartu 3D depan. Jika kosong, ilustrasi default ditampilkan.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>Foto Kegiatan (6 slot)</h2>
     <div class="hint">Isi slot yang kamu mau. Foto kosong = tampil ilustrasi bawaan.</div>
     <div id="kgSlots"></div>
@@ -226,6 +238,7 @@
   }
   function renderPreview(key,url){var el=$('#prv_'+key);if(el)el.src=url}
   bindUpload('in_fotoProfil','fotoProfil','prv_fotoProfil',560);
+  bindUpload('in_fotoBeranda','fotoBeranda','prv_fotoBeranda',560);
 
   /* ---- SLOT KEGIATAN ---- */
   var kgKeys=['kg1','kg2','kg3','kg4','kg5','kg6'];
