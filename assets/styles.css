@@ -358,17 +358,21 @@ body.ex-spin #page{animation:spOut .26s cubic-bezier(.55,0,.55,.25) both}
 @keyframes spIn{from{transform:perspective(1200px) rotateY(-22deg) scale(.94);opacity:0}to{transform:none;opacity:1}}
 @keyframes spOut{to{transform:perspective(1200px) rotateY(16deg) scale(1.06);opacity:0}}
 
-/* ---------- POPUP HALAMAN ---------- */
-.pv{position:fixed;top:50%;left:50%;z-index:75;pointer-events:none;text-align:center;transform:translate(-50%,-50%) scale(.82);opacity:0;
-  background:rgba(10,13,24,.92);border:1px solid var(--line);border-radius:26px;padding:28px 42px 22px;
-  box-shadow:0 34px 90px -22px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.07)}
-.pv.go{animation:pvPop .38s cubic-bezier(.16,1,.3,1) both}
-.pv .k{display:block;font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
-.pv b{display:block;font-family:var(--font-display);font-size:clamp(36px,5.6vw,50px);font-weight:400;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
-.pv b::after{content:'';display:block;width:38px;height:1px;margin:15px auto 0;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pg) 75%,transparent),transparent)}
-.pv span{display:block;margin-top:13px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#b6bdda}
-.pv .e{display:block;margin-top:6px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-@keyframes pvPop{from{transform:translate(-50%,-50%) scale(.82);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+/* ---------- EFEK TRANSISI (asap putih & ombak laut) ---------- */
+.fx{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden;opacity:1}
+.fx.smoke{background:
+  radial-gradient(38% 44% at 26% 72%,rgba(255,255,255,.30),transparent 70%),
+  radial-gradient(46% 42% at 66% 28%,rgba(255,255,255,.24),transparent 72%),
+  radial-gradient(40% 46% at 88% 64%,rgba(255,255,255,.18),transparent 72%),
+  linear-gradient(180deg,rgba(235,240,248,.06),transparent 60%);
+  animation:smokeClear 1.15s cubic-bezier(.3,.5,.3,1) forwards}
+@keyframes smokeClear{from{opacity:.9;transform:translateX(-5%) scale(.985)}to{opacity:0;transform:translateX(7%) scale(1.03)}}
+.fx.wave{background:
+  repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,255,255,.11) 46px 64px,transparent 64px 140px),
+  repeating-linear-gradient(112deg,transparent 0 100px,rgba(255,255,255,.07) 100px 130px,transparent 130px 230px),
+  linear-gradient(180deg,rgba(64,120,190,.16),rgba(6,34,66,.38));
+  animation:waveUp 1.25s cubic-bezier(.32,.62,.4,1) forwards}
+@keyframes waveUp{from{transform:translateY(0) skewX(-5deg)}to{transform:translateY(-100%) skewX(-9deg)}}
 
 /* ---------- HINT POPUP (geser / ketuk 2x) ---------- */
 .hint-pop{position:fixed;left:50%;bottom:96px;z-index:74;transform:translate(-50%,16px) scale(.94);opacity:0;pointer-events:none;

@@ -7,8 +7,8 @@
     {key:'biodata',   file:'biodata.html',   label:'Biodata',    year:'2015', name:'Era Deep Learning',     color:'#00e0c6', anim:'right'},
     {key:'keahlian',  file:'keahlian.html',  label:'Keahlian',   year:'2006', name:'Era Machine Learning',  color:'#3b82f6', anim:'flipv'},
     {key:'proyek',    file:'proyek.html',    label:'Proyek',     year:'1997', name:'Era Deep Blue',         color:'#22c55e', anim:'left'},
-    {key:'kegiatan',  file:'kegiatan.html',  label:'Kegiatan',   year:'1986', name:'Era Sistem Pakar',      color:'#f59e0b', anim:'zoom'},
-    {key:'pencapaian',file:'pencapaian.html',label:'Pencapaian', year:'1966', name:'Era Logika & ELIZA',    color:'#a78bfa', anim:'tilt'},
+    {key:'kegiatan',  file:'kegiatan.html',  label:'Kegiatan',   year:'1986', name:'Era Sistem Pakar',      color:'#f59e0b', anim:'wave'},
+    {key:'pencapaian',file:'pencapaian.html',label:'Pencapaian', year:'1966', name:'Era Logika & ELIZA',    color:'#a78bfa', anim:'smoke'},
     {key:'kontak',    file:'kontak.html',    label:'Kontak',     year:'1950', name:'Kelahiran AI - Turing', color:'#e0b060', anim:'spin'}
   ];
 
@@ -100,26 +100,39 @@
     $$('#navShell ul a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open')})});
   }
 
+  /* ---------- EFEK TRANSISI (asap / ombak) ---------- */
+  function fxOf(a){return (a==='wave'||a==='smoke')?a:null}
+  function showFX(type){
+    var f=document.createElement('div');
+    f.className='fx fx-'+type;
+    document.body.appendChild(f);
+    setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f)},1600);
+  }
+
   /* ---------- SLIDE NAVIGASI (variasi ala Kage) ---------- */
   var slideDir=sessionStorage.getItem('pf_dir'),slideAnim=sessionStorage.getItem('pf_anim')||'zoom';
   sessionStorage.removeItem('pf_dir');sessionStorage.removeItem('pf_anim');
   if(slideDir){
-    document.body.classList.add('en-'+slideAnim);
+    var pgEn=(slideAnim==='wave'||slideAnim==='smoke')?'fade':slideAnim;
+    document.body.classList.add('en-'+pgEn);
+    var fxEn=fxOf(slideAnim);if(fxEn)showFX(fxEn);
     setTimeout(function(){
       ['en-zoom','en-right','en-left','en-fade','en-tilt','en-flipv','en-spin','ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin']
         .forEach(function(c){document.body.classList.remove(c)});
     },620);
   }
 
-  function showPV(p){
-    if(reduce)return;
-    var old=$('.pv');if(old)old.remove();
-    var d=document.createElement('div');d.className='pv';
-    var n=PAGES.indexOf(p);
-    var num=String(n<0?0:n+1).padStart((PAGES.length+'').length,'0');
-    d.innerHTML='<em class="k">Menuju</em><b>'+num+'</b><span>'+p.label+'</span><em class="e">'+p.name+'</em>';
-    document.body.appendChild(d);
-    requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('go')})});
+  function go(i,dir){
+    var t=PAGES[(i+PAGES.length)%PAGES.length];
+    if(t.file===CP.file)return;
+    var anim=(PAGES[i]&&PAGES[i].anim)||'zoom';
+    var pg=(anim==='wave'||anim==='smoke')?'fade':anim;
+    sessionStorage.setItem('pf_dir',dir);
+    sessionStorage.setItem('pf_anim',anim);
+    var fx=fxOf(anim);if(fx)showFX(fx);
+    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin'].forEach(function(c){document.body.classList.remove(c)});
+    document.body.classList.add('ex-'+pg);
+    setTimeout(function(){location.href=t.file},reduce?0:320);
   }
 
   function showHint(msg){
@@ -148,17 +161,6 @@
   bindDouble('#scene');
   bindDouble('.ab-ph');
 
-  function go(i,dir){
-    var t=PAGES[(i+PAGES.length)%PAGES.length];
-    if(t.file===CP.file)return;
-    var anim=(PAGES[i]&&PAGES[i].anim)||'zoom';
-    sessionStorage.setItem('pf_dir',dir);
-    sessionStorage.setItem('pf_anim',anim);
-    showPV(t);
-    ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin'].forEach(function(c){document.body.classList.remove(c)});
-    document.body.classList.add('ex-'+anim);
-    setTimeout(function(){location.href=t.file},reduce?0:320);
-  }
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[data-slide]');
     if(!a)return;e.preventDefault();
