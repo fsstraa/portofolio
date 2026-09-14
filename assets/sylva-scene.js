@@ -107,6 +107,7 @@
   var FAR_N  = { w:  780, left: -110, top: 600, aspect: 1600 /  757, z: -260 };
 
   var renderer, scene, camera;
+  var glLost = false;
   var nearGroup, farGroup, motes, shadowMesh, glowMesh;
   var W = 1, H = 1, DIST = 1400;
   var poleTex = null;
@@ -1699,6 +1700,16 @@
     renderer.toneMappingExposure = 1.30;
     if ('sRGBEncoding' in THREE) renderer.outputEncoding = THREE.sRGBEncoding;
 
+    /* If the mobile GPU drops the GL context while the overlay is up, stop
+       throwing on every frame — skip rendering until it comes back. */
+    glLost = false;
+    canvas.addEventListener('webglcontextlost', function (e) {
+      e.preventDefault();
+      glLost = true;
+      ready(); /* make sure the DOM entrance is shown even with no 3D */
+    });
+    canvas.addEventListener('webglcontextrestored', function () { glLost = false; });
+
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(40, 1, 10, 8000);
     camera.position.set(0, 0, DIST);
@@ -2553,6 +2564,7 @@
   /* ── frame ─────────────────────────────────────────────────────────── */
   var frames = 0;
   function renderFrame() {
+    if (glLost) return;
     var dt = Math.min(clock.getDelta(), 0.05);
     if (!REDUCED) uTime.value += dt;
 
