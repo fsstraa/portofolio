@@ -126,7 +126,7 @@
       ['en-zoom','en-right','en-left','en-fade','en-tilt','en-flipv','en-spin','en-up','en-shear','en-scale',
        'ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin','ex-up','ex-shear','ex-scale']
         .forEach(function(c){document.body.classList.remove(c)});
-    },720);
+    },640);
   }
 
   function go(i,dir){
@@ -140,7 +140,8 @@
     ['ex-zoom','ex-right','ex-left','ex-fade','ex-tilt','ex-flipv','ex-spin','ex-up','ex-shear','ex-scale']
       .forEach(function(c){document.body.classList.remove(c)});
     document.body.classList.add('ex-'+pageCls(anim));
-    setTimeout(function(){location.href=t.file},reduce?0:360);
+    try{var p=document.createElement('link');p.rel='prefetch';p.href=t.file;document.head.appendChild(p)}catch(e){}
+    setTimeout(function(){location.href=t.file},reduce?0:300);
   }
 
   function showHint(msg){
