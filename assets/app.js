@@ -122,7 +122,7 @@
     h.innerHTML='<svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13 7l5 5-5 5"/></svg><span>'+msg+'</span>';
     document.body.appendChild(h);
     requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add('go')})});
-    setTimeout(function(){h.classList.remove('go');h.classList.add('out');setTimeout(function(){if(h.parentNode)h.parentNode.removeChild(h)},460)},5200);
+    setTimeout(function(){h.classList.remove('go');h.classList.add('out');setTimeout(function(){if(h.parentNode)h.parentNode.removeChild(h)},460)},3000);
     try{sessionStorage.setItem('pf_kh','1')}catch(e){}
   }
   if(CI===0)showHint('Geser atau ketuk foto 2x untuk ke Biodata');
