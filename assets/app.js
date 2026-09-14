@@ -110,10 +110,36 @@
     var d=document.createElement('div');d.className='pv';
     var n=PAGES.indexOf(p);
     var num=String(n<0?0:n+1).padStart((PAGES.length+'').length,'0');
-    d.innerHTML='<em class="k">Menuju</em><b>'+num+'</b><span>'+p.label+'</span>';
+    d.innerHTML='<em class="k">Menuju</em><b>'+num+'</b><span>'+p.label+'</span><em class="e">'+p.name+'</em>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('go')})});
   }
+
+  function showHint(msg){
+    if(reduce)return;
+    try{if(sessionStorage.getItem('pf_kh'))return}catch(e){}
+    var h=document.createElement('div');h.className='hint-pop';
+    h.innerHTML='<svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13 7l5 5-5 5"/></svg><span>'+msg+'</span>';
+    document.body.appendChild(h);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add('go')})});
+    setTimeout(function(){h.classList.remove('go');h.classList.add('out');setTimeout(function(){if(h.parentNode)h.parentNode.removeChild(h)},460)},5200);
+    try{sessionStorage.setItem('pf_kh','1')}catch(e){}
+  }
+  if(CI===0)showHint('Geser atau ketuk foto 2x untuk ke Biodata');
+  else if(CI===1)showHint('Ketuk foto 2x untuk ke Keahlian');
+
+  var lastTap=0,tapX=0,tapY=0;
+  function bindDouble(sel){
+    var el=$(sel);if(!el)return;
+    el.addEventListener('dblclick',function(e){e.preventDefault();go(CI+1,'next')});
+    el.addEventListener('touchend',function(e){
+      var t=e.changedTouches[0],now=Date.now();
+      if(now-lastTap<340&&Math.abs(t.clientX-tapX)<36&&Math.abs(t.clientY-tapY)<36){e.preventDefault();go(CI+1,'next')}
+      lastTap=now;tapX=t.clientX;tapY=t.clientY;
+    },{passive:false});
+  }
+  bindDouble('#scene');
+  bindDouble('.ab-ph');
 
   function go(i,dir){
     var t=PAGES[(i+PAGES.length)%PAGES.length];
