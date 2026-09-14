@@ -320,7 +320,7 @@
   var scene=$('#scene');
   if(scene){
     var card=$('#card3d'),tip=$('#spideyTip');
-    var cur={rx:-14,ry:0},tgt={rx:-14,ry:0},over=false,flipNow=false;
+    var cur={rx:-14,ry:0},tgt={rx:-14,ry:0},over=false,flipNow=false,grabbed=false,lastPx=0,lastPy=0;
     function setSpidey(on){
       if(on!==flipNow){
         flipNow=on;
@@ -330,18 +330,23 @@
         if(on){var R=scene.getBoundingClientRect();window.webBurst(R.left+R.width/2,R.top+R.height/2)}
       }
     }
-    scene.addEventListener('pointermove',function(e){
+    function onMove(px,py){
       var R=scene.getBoundingClientRect();
-      var x=(e.clientX-R.left)/R.width-.5,y=(e.clientY-R.top)/R.height-.5;
+      var x=(px-R.left)/R.width-.5,y=(py-R.top)/R.height-.5;
       tgt.ry=x*52;tgt.rx=-16-y*30;
       setSpidey(Math.abs(x)>.38||Math.abs(y)>.42);
-    },{passive:true});
+    }
+    scene.addEventListener('pointerdown',function(e){grabbed=true;lastPx=e.clientX;lastPy=e.clientY;scene.style.cursor='grabbing'},{passive:true});
+    window.addEventListener('pointermove',function(e){if(!grabbed)return;onMove(e.clientX,e.clientY)},{passive:true});
+    window.addEventListener('pointerup',function(){if(grabbed){grabbed=false;scene.style.cursor=''}});
+    scene.addEventListener('pointermove',function(e){if(!grabbed)onMove(e.clientX,e.clientY)},{passive:true});
     scene.addEventListener('pointerenter',function(){over=true});
-    scene.addEventListener('pointerleave',function(){over=false;tgt.rx=-16;tgt.ry=0});
+    scene.addEventListener('pointerleave',function(){over=false;if(!grabbed){tgt.rx=-16;tgt.ry=0;setSpidey(false)}});
     (function tiltLoop(){
       var t=Date.now();
-      if(!over){tgt.ry=Math.sin(t*.0005)*8;tgt.rx=-16+Math.cos(t*.00042)*4}
-      cur.rx+=(tgt.rx-cur.rx)*.09;cur.ry+=(tgt.ry-cur.ry)*.09;
+      if(!over&&!grabbed){tgt.ry=Math.sin(t*.0005)*8;tgt.rx=-16+Math.cos(t*.00042)*4}
+      var sp=over?(grabbed?.22:.14):.08;
+      cur.rx+=(tgt.rx-cur.rx)*sp;cur.ry+=(tgt.ry-cur.ry)*sp;
       var k=Math.min(1,Math.abs(cur.ry)/52);
       card.style.setProperty('--rx',cur.rx.toFixed(2)+'deg');
       card.style.setProperty('--ry',cur.ry.toFixed(2)+'deg');
