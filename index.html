@@ -1,202 +1,62 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fachry Satria Putra — Beranda</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
 <meta name="description" content="Fachry Satria Putra — Web Development, Builder, UI/UX Designer. Bangun pengalaman digital yang cepat, ringan, dan berkesan.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 24'%3E%3Crect width='22' height='24' fill='%234a4d44'/%3E%3Cpath fill='%23fff' d='M11 1.3c-2.1 0-3.95 1.2-4.75 2.95C3.95 4.55 2.3 6.25 2.3 8.35c0 2.3 1.9 4.2 4.3 4.2h8.8c2.4 0 4.3-1.9 4.3-4.2 0-2.1-1.65-3.8-4-4.1C14.95 2.5 13.1 1.3 11 1.3Z'/%3E%3Cpath fill='%23fff' d='M9.6 12.55h2.8v4.2c1.35.3 2.45 1.15 3.15 2.4-1.35.4-2.4.15-3.15-.4v4.15H9.6v-4.15c-.75.55-1.8.8-3.15.4.7-1.25 1.8-2.1 3.15-2.4v-4.2Z'/%3E%3C/svg%3E">
-<script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="assets/sylva.css?v=4">
+<title>Fachry Satria Putra — Portofolio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 24'%3E%3Crect width='22' height='24' fill='%23ff6901'/%3E%3Cpath fill='%23080c0a' d='M11 4.5A5.2 5.2 0 0 0 5.8 9.7 5.6 5.6 0 0 0 7.4 20h7.2a5.6 5.6 0 0 0 1.6-10.3A5.2 5.2 0 0 0 11 4.5Z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/styles.css?v=5">
 </head>
 <body>
 
-<main class="hero" id="hero">
-  <canvas id="scene"></canvas>
-
-  <div class="dock-wrap">
-    <nav class="dock par-dock" style="--pd:5" data-spec aria-label="Primary">
-      <a class="dock-item dock-mark" data-dock data-spec data-burst href="#beranda" style="--d:120ms" aria-label="Fachry Satria Putra — beranda">
-        <svg viewBox="0 0 22 24" aria-hidden="true">
-          <path d="M11 1.3c-2.1 0-3.95 1.2-4.75 2.95C3.95 4.55 2.3 6.25 2.3 8.35c0 2.3 1.9 4.2 4.3 4.2h8.8c2.4 0 4.3-1.9 4.3-4.2 0-2.1-1.65-3.8-4-4.1C14.95 2.5 13.1 1.3 11 1.3Z"/>
-          <path d="M9.6 12.55h2.8v4.2c1.35.3 2.45 1.15 3.15 2.4-1.35.4-2.4.15-3.15-.4v4.15H9.6v-4.15c-.75.55-1.8.8-3.15.4.7-1.25 1.8-2.1 3.15-2.4v-4.2Z"/>
-        </svg>
-      </a>
-      <a class="dock-item is-active" data-dock data-spec data-burst href="biodata.html" data-open="biodata.html" style="--d:180ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M8 14V9"/><path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z"/><path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z"/></svg>
-        </span>
-        <span>Biodata</span>
-      </a>
-      <a class="dock-item" data-dock data-spec data-burst href="keahlian.html" data-open="keahlian.html" style="--d:230ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4"/><path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4"/></svg>
-        </span>
-        <span>Keahlian</span>
-      </a>
-      <a class="dock-item" data-dock data-spec data-burst href="proyek.html" data-open="proyek.html" style="--d:280ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M4 2.4h5.3L12 5.1v8.5H4z"/><path d="M9.2 2.4V5h2.7"/><path d="M6 8.4h4M6 10.8h2.8"/></svg>
-        </span>
-        <span>Proyek</span>
-      </a>
-      <a class="dock-item" data-dock data-spec data-burst href="kegiatan.html" data-open="kegiatan.html" style="--d:330ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M8 14V9"/><path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z"/><path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z"/></svg>
-        </span>
-        <span>Kegiatan</span>
-      </a>
-      <a class="dock-item" data-dock data-spec data-burst href="pencapaian.html" data-open="pencapaian.html" style="--d:380ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M2.6 8h6.6"/><path d="M6.6 2.5h5.1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6.6"/><path d="m7 5.6 2.4 2.4L7 10.4"/></svg>
-        </span>
-        <span>Pencapaian</span>
-      </a>
-      <a class="dock-item dock-item--enter" data-dock data-spec data-burst href="kontak.html" data-open="kontak.html" style="--d:430ms">
-        <span class="glyph" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4"/><path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4"/></svg>
-        </span>
-        <span>Kontak</span>
-      </a>
-    </nav>
-  </div>
-
-  <div class="stage" id="stage">
-
-    <div class="guides fade" style="--d:900ms" aria-hidden="true">
-      <i style="left:calc(405 * var(--u))"></i>
-      <i style="left:calc(748 * var(--u))"></i>
-      <i style="left:calc(1091 * var(--u))"></i>
+<main id="page">
+  <div class="screen">
+    <div class="hd">
+      <span class="chip">Fachry Satria Putra — Portofolio</span>
+      <h1>Halo, Saya <em data-pf="nama">Fachry Satria Putra</em>.</h1>
+      <p class="lede" data-pf="desc">Membangun pengalaman digital yang cepat, ringan, dan berkesan. Dari web hingga aplikasi AI, saya suka menciptakan produk yang terasa halus di setiap perangkat.</p>
+      <p style="color:#666664;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:16px" data-pf="badge">Web Development · Builder · UI/UX Designer</p>
     </div>
 
-    <div class="ghost fade" style="--d:1150ms" aria-hidden="true">FACHRY</div>
-
-    <!-- card 1 sits *behind* the canvas so the moss drapes over its shoulder -->
-    <article class="card card--about mask" style="--d:760ms; --pd:10; --pr:2.2">
-      <figure class="portal" data-delay="920">
-        <span class="portal-media"><img src="sylva/inner-green-assets/card-ethos.jpg" alt="Lumut tumbuh di atas batu" loading="eager" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <p class="label">Tentang Saya</p>
-      <h2>Kenapa saya membangun.</h2>
-    </article>
-
-    <!-- the About knob rides *outside* the card: the card has to stay a plain
-         painted box under #scene, so anything that must sit in front of the
-         moss lives here instead, sharing the card's parallax origin -->
-    <span class="knob-float" style="--pd:10; --pr:2.2">
-      <button class="knob knob--about mask-circle" style="--d:1100ms" data-open="biodata.html" aria-label="Buka biodata">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21v-7"/><path d="M12 14c0-3.3 2.4-6 5.5-6 .3 3.6-2.2 6.4-5.5 6Z"/>
-          <path d="M12 16c-.1-2.9-2.2-5.2-4.9-5.2C6.8 13.7 9 16 12 16Z"/>
-        </svg>
-      </button>
-    </span>
-
-    <h1 class="headline" style="--pd:18; --pr:1.2">
-      <span><i style="--d:260ms">Halo, Saya</i></span>
-      <span><i style="--d:360ms" data-pf="nama">Fachry Satria Putra</i></span>
-    </h1>
-
-    <p class="lede mask" style="--d:480ms; --pd:14; --pr:1" data-pf="desc">Membangun pengalaman digital yang cepat, ringan, dan berkesan. Dari web hingga aplikasi AI, saya suka menciptakan produk yang terasa halus di setiap perangkat.</p>
-
-    <div class="pill-clip">
-      <div class="pill mask" style="--d:600ms; --pd:15; --pr:1.4">
-        <div class="liquid-stage liquid-stage--explore" data-liquid-metal="explore">
-          <div class="liquid-plate plate" aria-hidden="true"></div>
-          <canvas class="liquid-fx" aria-hidden="true"></canvas>
-          <button class="liquid-button liquid-button--explore btn" type="button" data-open="proyek.html">
-            <svg class="ico" viewBox="0 0 115 115" aria-hidden="true">
-              <g stroke="currentColor" stroke-width="11" stroke-linecap="round">
-                <path d="M14 34.5 H101"/>
-                <path d="M14 57.5 H101"/>
-                <path d="M14 80.5 H68"/>
-              </g>
-            </svg>
-            <span class="lbl">Lihat Proyek</span>
-          </button>
-        </div>
-      </div>
+    <div class="home-grid">
+      <a class="home-card" href="biodata.html">
+        <span class="no">01 — TENTANG</span>
+        <h3>Biodata<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Kenali saya lebih dekat.</p>
+      </a>
+      <a class="home-card" href="keahlian.html">
+        <span class="no">02 — STACK</span>
+        <h3>Keahlian<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Teknologi &amp; alat yang saya kuasai.</p>
+      </a>
+      <a class="home-card" href="proyek.html">
+        <span class="no">03 — KARYA</span>
+        <h3>Proyek<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Kumpulan proyek yang pernah saya buat.</p>
+      </a>
+      <a class="home-card" href="kegiatan.html">
+        <span class="no">04 — AKTIVITAS</span>
+        <h3>Kegiatan<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Dokumentasi event &amp; kegiatan saya.</p>
+      </a>
+      <a class="home-card" href="pencapaian.html">
+        <span class="no">05 — PRESTASI</span>
+        <h3>Pencapaian<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Prestasi &amp; penghargaan yang pernah diraih.</p>
+      </a>
+      <a class="home-card" href="kontak.html">
+        <span class="no">06 — KONTAK</span>
+        <h3>Kontak<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></h3>
+        <p>Mari terhubung dan berkolaborasi.</p>
+      </a>
     </div>
 
-    <span class="play-wrap" style="--pd:20">
-      <span class="play-clip">
-        <span class="play-glass mask-circle" style="--d:900ms">
-          <span class="liquid-stage liquid-stage--play" data-liquid-metal="play">
-            <span class="liquid-plate plate" aria-hidden="true"></span>
-            <canvas class="liquid-fx" aria-hidden="true"></canvas>
-            <button class="liquid-button liquid-button--play btn" type="button" data-open="kegiatan.html" aria-label="Buka kegiatan">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 5.2v13.6L19 12z" fill="currentColor"/>
-              </svg>
-            </button>
-          </span>
-        </span>
-      </span>
-      <span class="play-ring mask-circle" style="--d:840ms" aria-hidden="true"></span>
-    </span>
-
-    <dl class="stat stat--a mask" style="--d:700ms; --pd:12">
-      <span class="mark" aria-hidden="true">
-        <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-          <circle cx="15" cy="15" r="10.5" stroke-dasharray="0.6 3.6"/>
-          <circle cx="15" cy="15" r="5.6" stroke-dasharray="0.6 3.2"/>
-          <circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/>
-        </svg>
-      </span>
-      <div><dt>Proyek Selesai</dt><dd data-pf-num="proyek" data-to="35">35+</dd></div>
-    </dl>
-
-    <dl class="stat stat--b mask" style="--d:770ms; --pd:13">
-      <span class="mark" aria-hidden="true">
-        <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-          <g id="rays">
-            <path d="M15 3.5v5"/><path d="M15 21.5v5"/><path d="M3.5 15h5"/><path d="M21.5 15h5"/>
-            <path d="M6.9 6.9l3.5 3.5"/><path d="M19.6 19.6l3.5 3.5"/><path d="M23.1 6.9l-3.5 3.5"/><path d="M10.4 19.6l-3.5 3.5"/>
-          </g>
-          <circle cx="15" cy="15" r="3.6"/>
-        </svg>
-      </span>
-      <div><dt>Tahun Pengalaman</dt><dd data-pf-num="tahun" data-to="4" data-suf="">4</dd></div>
-    </dl>
-
-    <article class="card card--stove mask" style="--d:880ms; --pd:22; --pr:2.4">
-      <p class="label">Web &amp; Karya</p>
-      <h2>Paling Baru</h2>
-      <figure class="portal" data-delay="1080">
-        <span class="portal-media"><img src="sylva/inner-green-assets/card-ecostove.jpg" alt="Batu berlumut di hutan berkabut" loading="eager" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <button class="knob" data-open="proyek.html" aria-label="Buka proyek">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21v-7"/><path d="M12 14c0-3.3 2.4-6 5.5-6 .3 3.6-2.2 6.4-5.5 6Z"/>
-          <path d="M12 16c-.1-2.9-2.2-5.2-4.9-5.2C6.8 13.7 9 16 12 16Z"/>
-        </svg>
-      </button>
-    </article>
-
-    <a class="scroll mask" style="--d:1040ms; --pd:9" href="#kontak" data-open="kontak.html">Hubungi Saya<span class="track"></span></a>
-
+    <p class="home-foot"><a href="admin.html">Admin</a></p>
   </div>
 </main>
 
-<div class="page-overlay" id="pageOverlay" aria-hidden="true">
-  <div class="overlay-bar">
-    <span class="overlay-tag" id="overlayTag">Halaman</span>
-    <button class="overlay-close" id="overlayClose" type="button" aria-label="Tutup dan kembali ke beranda">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M15 5l-7 7 7 7"/>
-      </svg>
-      <span>Kembali ke Beranda</span>
-    </button>
-  </div>
-  <iframe id="pageFrame" title="Halaman portofolio" loading="eager"></iframe>
-</div>
-
-<script src="sylva/inner-green-assets/three.min.js"></script>
-<script src="assets/sylva-liquid.js"></script>
-<script src="assets/sylva-scene.js"></script>
-<script src="assets/sylva-overlay.js"></script>
-<script src="assets/sylva-data.js"></script>
+<script src="assets/app.js?v=5"></script>
 </body>
 </html>
