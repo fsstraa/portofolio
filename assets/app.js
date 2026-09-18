@@ -64,7 +64,6 @@
 
   /* ---------- INJECT NAV / FOOTER / ARAH ---------- */
   document.body.insertAdjacentHTML('afterbegin',
-    '<div id="codeGrid"></div><div class="blob b1"></div><div class="blob b2"></div>'+
     '<nav id="navShell">'+
       '<ul>'+PAGES.map(function(p){return '<li><a href="'+p.file+'" data-slide class="'+(p.file===CP.file?'on':'')+'">'+p.label+'</a></li>'}).join('')+'</ul>'+
       '<button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>'+
@@ -192,63 +191,6 @@
     if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.4)go(dx<0?CI+1:CI-1,dx<0?'next':'prev');
   },{passive:true});
 
-  /* ---------- PARTIKEL HALUS (bulir) ---------- */
-  var cv=$('#bg'),ptHide=false;
-  document.addEventListener('visibilitychange',function(){ptHide=document.hidden});
-  if(cv){try{
-  var ctx=cv.getContext('2d'),W,H,parts=[],webs=[],px0=.5,py0=.5,px=.5,py=.5;
-  var isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
-  function pgColor(){return (getComputedStyle(document.body).getPropertyValue('--pg')||'#3b82f6').trim()}
-  function resize(){
-    var d=Math.min(window.devicePixelRatio||1,isTouch?1.1:1.3);
-    W=window.innerWidth;H=window.innerHeight;
-    cv.width=Math.round(W*d);cv.height=Math.round(H*d);
-    cv.style.width=W+'px';cv.style.height=H+'px';
-    ctx.setTransform(d,0,0,d,0,0);
-    var n=Math.round(Math.min(isTouch?30:52,Math.max(isTouch?12:18,W*H/(isTouch?38000:21000))));
-    parts=[];for(var i=0;i<n;i++)parts.push(np());
-    webs=[];
-  }
-  function np(){return {x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.5,vx:(Math.random()-.5)*.18,vy:-.04-Math.random()*.26,ph:Math.random()*6.2832,tw:.4+Math.random()*1.2,gl:(Math.random()<(isTouch?.15:.24)?TOKS[(Math.random()*TOKS.length)|0]:null)}}
-  var TOKS=['{','}',';','=>','</>','[]','()','_','#','$','//',':'];
-  window.webBurst=function(cx,cy){var n=reduce?10:26;for(var i=0;i<n;i++){var a=Math.random()*6.2832,s=.5+Math.random()*2.6;webs.push({x:cx,y:cy,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,r:1+Math.random()*1.8,life:1})}};
-  function step(){
-    if(ptHide){requestAnimationFrame(step);return}
-    ctx.clearRect(0,0,W,H);
-    px+=(px0-px)*.05;py+=(py0-py)*.05;
-    var offx=(px-.5)*.5*Math.min(W,1400),offy=(py-.5)*.5*Math.min(H,900);
-    var pgc=pgColor(),t=Date.now();
-    for(var i=0;i<parts.length;i++){var p=parts[i];
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.y<-10){p.y=H+10;p.x=Math.random()*W}
-      if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
-      var a=.14+.26*(Math.sin(t*(.0016*p.tw)+p.ph)*.5+.5);
-      ctx.globalAlpha=a;
-      ctx.fillStyle=pgc;
-      if(p.gl){ctx.font=(8+p.r*6).toFixed(0)+'px "Courier New",monospace';ctx.fillText(p.gl,p.x+offx,p.y+offy)}
-      else{ctx.beginPath();ctx.arc(p.x+offx,p.y+offy,p.r,0,6.2832);ctx.fill()}
-    }
-    ctx.globalAlpha=1;
-    if(!reduce&&!isTouch&&parts.length<56){
-      ctx.lineWidth=1;
-      for(var i=0;i<parts.length;i++)for(var j=i+1;j<parts.length;j++){
-        var a=parts[i],b=parts[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
-        if(d2<8100){ctx.globalAlpha=.08*(1-d2/8100);ctx.strokeStyle=pgc;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
-      }
-      ctx.globalAlpha=1;
-    }
-    for(var i=webs.length-1;i>=0;i--){var w=webs[i];w.x+=w.vx;w.y+=w.vy;w.vy+=.05;w.life-=.02;
-      if(w.life<=0){webs.splice(i,1);continue}
-      ctx.globalAlpha=Math.max(0,w.life*.85);ctx.fillStyle=pgc;ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,6.2832);ctx.fill()
-    }
-    ctx.globalAlpha=1;
-    requestAnimationFrame(step);
-  }
-  window.addEventListener('resize',resize);
-  window.addEventListener('mousemove',function(e){px0=e.clientX/W;py0=e.clientY/H},{passive:true});
-  resize();if(!reduce)requestAnimationFrame(step);
-  }catch(e){}}
-
   /* ---------- TERAPKAN DATA ADMIN ---------- */
   function applyPF(){
     if(PFL&&JSON.stringify(PFL)!=='{}'){
@@ -315,67 +257,6 @@
 
   /* ---------- MARQUEE (Keahlian) ---------- */
   $$('.m-track').forEach(function(tr){tr.innerHTML+=tr.innerHTML});
-
-  /* ---------- 3D SPIDERMAN CARD (Beranda) ---------- */
-  var scene=$('#scene');
-  if(scene){
-    var card=$('#card3d'),tip=$('#spideyTip');
-    var cur={rx:-14,ry:0},tgt={rx:-14,ry:0},over=false,flipNow=false,grabbed=false,lastPx=0,lastPy=0;
-    function setSpidey(on){
-      if(on!==flipNow){
-        flipNow=on;
-        card.classList.toggle('spidey',on);
-        var fl=$('#flip');if(fl)fl.style.setProperty('--flip',on?'180deg':'0deg');
-        tip.classList.toggle('hot',on);
-        tip.innerHTML=on?'Spider-Man muncul! Geser/kembalikan ke tengah untuk kembali.':'Gerakkan kursor atau miringkan HP agar foto berubah jadi Spider-Man';
-        if(on){var R=scene.getBoundingClientRect();window.webBurst(R.left+R.width/2,R.top+R.height/2)}
-      }
-    }
-    function onMove(px,py){
-      var R=scene.getBoundingClientRect();
-      var x=(px-R.left)/R.width-.5,y=(py-R.top)/R.height-.5;
-      tgt.ry=x*52;tgt.rx=-16-y*30;
-      setSpidey(Math.abs(x)>.38||Math.abs(y)>.42);
-    }
-    scene.addEventListener('pointerdown',function(e){grabbed=true;lastPx=e.clientX;lastPy=e.clientY;scene.style.cursor='grabbing'},{passive:true});
-    window.addEventListener('pointermove',function(e){if(!grabbed)return;onMove(e.clientX,e.clientY)},{passive:true});
-    window.addEventListener('pointerup',function(){if(grabbed){grabbed=false;scene.style.cursor=''}});
-    scene.addEventListener('pointermove',function(e){if(!grabbed)onMove(e.clientX,e.clientY)},{passive:true});
-    scene.addEventListener('pointerenter',function(){over=true});
-    scene.addEventListener('pointerleave',function(){over=false;if(!grabbed){tgt.rx=-16;tgt.ry=0;setSpidey(false)}});
-    (function tiltLoop(){
-      var t=Date.now();
-      if(!over&&!grabbed){tgt.ry=Math.sin(t*.0005)*8;tgt.rx=-16+Math.cos(t*.00042)*4}
-      var sp=over?(grabbed?.22:.14):.08;
-      cur.rx+=(tgt.rx-cur.rx)*sp;cur.ry+=(tgt.ry-cur.ry)*sp;
-      var k=Math.min(1,Math.abs(cur.ry)/52);
-      card.style.setProperty('--rx',cur.rx.toFixed(2)+'deg');
-      card.style.setProperty('--ry',cur.ry.toFixed(2)+'deg');
-      card.style.setProperty('--zs',(1-k*.045).toFixed(3));
-      scene.style.setProperty('--sx',(cur.ry*.34).toFixed(1)+'px');
-      scene.style.setProperty('--ss',(1-k*.16).toFixed(3));
-      requestAnimationFrame(tiltLoop);
-    })();
-    if(window.DeviceOrientationEvent){
-      window.addEventListener('deviceorientation',function(e){
-        if(over)return;
-        var b=e.beta||0,g=e.gamma||0;
-        tgt.rx=Math.max(-34,Math.min(10,-b+14));
-        tgt.ry=Math.max(-34,Math.min(34,g*1.15));
-        setSpidey(Math.abs(g)>24||Math.abs(b-14)>28);
-      },true);
-    }
-  }
-
-  /* ---------- TILT CARD (Proyek) ---------- */
-  $$('.tilt').forEach(function(c){
-    c.addEventListener('mousemove',function(e){
-      var r=c.getBoundingClientRect();
-      c.style.setProperty('--ux',((e.clientX-r.left)/r.width-.5)*14+'deg');
-      c.style.setProperty('--uy',(-(e.clientY-r.top)/r.height+.5)*14+'deg');
-    });
-    c.addEventListener('mouseleave',function(){c.style.setProperty('--ux','0deg');c.style.setProperty('--uy','0deg')});
-  });
 
   /* ---------- FORM (Kontak) ---------- */
   var form=$('#contactForm');
