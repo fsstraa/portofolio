@@ -6,6 +6,7 @@
 
   var $=function(s,r){return (r||document).querySelector(s)};
   var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var PFL={};try{PFL=JSON.parse(localStorage.getItem('pfData')||'null')||{}}catch(e){PFL={}}
   var GH={owner:'fsstraa',repo:'portofolio',branch:'main',file:'pfdata.json'};
@@ -75,6 +76,28 @@
       e.preventDefault();
       var f=e.target;
       window.location.href='mailto:'+DH.em+'?subject='+encodeURIComponent('Pesan portofolio dari '+f.name.value+' ('+f.email.value+')')+'&body='+encodeURIComponent(f.msg.value);
+    });
+  }
+
+  /* ---------- AURORA (latar bergaya blackbox.ai, berlapis tidak berat) ---------- */
+  if(!document.querySelector('.orb'))document.body.insertAdjacentHTML('beforeend','<i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>');
+
+  /* ---------- 3D TILT HALUS (spring, gaya iOS) ---------- */
+  if(!reduce){
+    $$('.home-card,.proj,.ach,.act-card').forEach(function(card){
+      var rx=0,ry=0,li=0,trx=0,tryI=0,tli=0,raf=null;
+      function frame(){
+        rx+=(trx-rx)*.13;ry+=(tryI-ry)*.13;li+=(tli-li)*.16;
+        card.style.transform='perspective(900px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateY('+li.toFixed(1)+'px)';
+        if(Math.abs(trx-rx)>.01||Math.abs(tryI-ry)>.01||Math.abs(tli-li)>.01)raf=requestAnimationFrame(frame);else raf=null;
+      }
+      card.addEventListener('pointermove',function(e){
+        var b=card.getBoundingClientRect();
+        var px=(e.clientX-b.left)/b.width,py=(e.clientY-b.top)/b.height;
+        trx=(.5-py)*9;tryI=(px-.5)*11;tli=-4;
+        if(!raf)raf=requestAnimationFrame(frame);
+      },{passive:true});
+      card.addEventListener('pointerout',function(){trx=0;tryI=0;tli=0;if(!raf)raf=requestAnimationFrame(frame);},{passive:true});
     });
   }
 })();
