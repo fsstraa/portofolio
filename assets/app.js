@@ -119,4 +119,50 @@
       sc.addEventListener('pointerleave',function(){thx=0;thy=0;if(!hraf)hraf=requestAnimationFrame(hframe);},{passive:true});
     }
   }
+
+  /* ---------- SLIDE ANTAR HALAMAN ---------- */
+  if(!reduce){
+    var ORDER=['index.html','biodata.html','keahlian.html','kegiatan.html','proyek.html','pencapaian.html','kontak.html'];
+    var cur=location.pathname.split('/').pop()||'index.html';
+    var idx=ORDER.indexOf(cur);
+    if(idx>-1){
+      var main=document.getElementById('page');
+      var sdir=sessionStorage.getItem('pfSlide');
+      if(sdir){main.setAttribute('data-slide',sdir);sessionStorage.removeItem('pfSlide')}
+      function slide(t,back){
+        sessionStorage.setItem('pfSlide',back?'l':'r');
+        main.style.setProperty('--sx',back?'-44px':'44px');
+        main.classList.add('s-out');
+        setTimeout(function(){location.href=t},260);
+      }
+      function go(dirTo){
+        var t=idx+dirTo;if(t<0)t=ORDER.length-1;if(t>ORDER.length-1)t=0;
+        slide(ORDER[t],dirTo>0);
+      }
+      document.addEventListener('keydown',function(e){
+        if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+        var tag=(e.target.tagName||'').toLowerCase();
+        if(tag==='input'||tag==='textarea'||tag==='select'||e.target.isContentEditable)return;
+        e.preventDefault();go(e.key==='ArrowRight'?1:-1);
+      });
+      var px0=null;
+      document.addEventListener('pointerdown',function(e){px0=e.clientX},{passive:true});
+      document.addEventListener('pointerup',function(e){if(px0==null)return;var dx=e.clientX-px0;px0=null;if(Math.abs(dx)>70)go(dx>0?-1:1);},{passive:true});
+      document.addEventListener('click',function(e){
+        var a=e.target.closest('a');if(!a)return;
+        var href=(a.getAttribute('href')||'').trim();
+        if(!href||href[0]==='#'||/^(https?:|mailto:|tel:|javascript:)/i.test(href)||a.target==='_blank')return;
+        var t=ORDER.indexOf(href);
+        if(t<0)return;
+        if(t===idx){e.preventDefault();return}
+        e.preventDefault();
+        slide(href,t>idx);
+      });
+      var hint=document.createElement('div');
+      hint.className='swipe-hint';hint.textContent='← → panah / geser untuk pindah halaman';
+      document.body.appendChild(hint);
+      setTimeout(function(){hint.classList.add('show')},700);
+      setTimeout(function(){hint.classList.remove('show')},9000);
+    }
+  }
 })();
