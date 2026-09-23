@@ -36,7 +36,7 @@ const MIME = {
 
 const PAGES = ['index.html','biodata.html','keahlian.html','kegiatan.html','proyek.html','pencapaian.html','kontak.html'];
 const GIT_FILES = PAGES.concat(['assets', 'serve.js']);
-const IGNORE = /[\\/]\.git[\\/]|^serve\.js$|serve\.log|jawaban|diskusi|^npm-debug|chrome-profile/i;
+const IGNORE = /(^|[\\/])\.git([\\/]|$)|^serve\.js$|serve\.log|jawaban|diskusi|^npm-debug|chrome-profile/i;
 
 const clients = new Set();
 const selfMap = {};
