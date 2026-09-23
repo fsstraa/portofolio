@@ -79,7 +79,31 @@
   }
 
   /* ---------- AURORA (latar bergaya blackbox.ai, berlapis tidak berat) ---------- */
-  if(!document.querySelector('.orb'))document.body.insertAdjacentHTML('beforeend','<i class="bg-grid" aria-hidden="true"></i><i class="bg2" aria-hidden="true"></i><i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>');
+  let ambient='<i class="bg-grid" aria-hidden="true"></i><i class="bg2" aria-hidden="true"></i>'
+    +'<div class="vsc" aria-hidden="true">'
+    +'<div class="vsc-title"><i></i><i></i><i></i><span class="vsc-tab">fachry.tsx</span><span class="vsc-tab">server.ts</span></div>'
+    +'<div class="vsc-main"><div class="vsc-act"><b></b><b></b><b></b><b></b><b></b></div>'
+    +'<div class="vsc-side"><div class="vsc-sec">EXPLORER</div><div class="vsc-pf">folio'
+    +'<div class="vsc-dir">assets<div class="vsc-fl" style="--f:#e8a33d">app.ts</div><div class="vsc-fl" style="--f:#79c0ff">ui.css</div></div>'
+    +'<div class="vsc-fl" style="--f:#7ee787">index.ts</div><div class="vsc-fl" style="--f:#79c0ff">fachry.tsx</div></div></div>'
+    +'<div class="vsc-ed">'
+    +'<div class="vsc-row"><span class="vsc-g">1</span><code><span class="c-c">// folio — build &amp; deploy in one shot</span></code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">2</span><code><span class="c-k">import</span> <span class="c-w">ui</span> <span class="c-k">from</span> <span class="c-g">"./ui"</span>;</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">3</span><code><span class="c-k">const</span> <span class="c-w">theme</span> = <span class="c-g">"#ff6901"</span>;</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">4</span><code><span class="c-k">export async function</span> <span class="c-b">build</span>(site) {</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">5</span><code>&nbsp;&nbsp;<span class="c-k">const</span> out = <span class="c-k">await</span> <span class="c-b">compile</span>(site.files);</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">6</span><code>&nbsp;&nbsp;<span class="c-k">if</span> (fmt(out).size &gt; 8120) <span class="c-k">return</span> <span class="c-b">warn</span>(site);</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">7</span><code>&nbsp;&nbsp;<span class="c-k">return</span> <span class="c-b">push</span>(gh, out);</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">8</span><code>}</code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">9</span><code></code></div>'
+    +'<div class="vsc-row"><span class="vsc-g">10</span><code><span class="c-c">// 0 errors · main ●</span></code></div>'
+    +'</div></div>'
+    +'<div class="vsc-status"><b></b><b></b><b></b><i>main ●</i><i>0▲ 0▼</i><i>ln 7, col 4</i><i>UTF-8</i><i>LF</i><i>2 sp</i></div>'
+    +'</div>'
+    +'<i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>'
+    +'<div class="island"><i></i>fachry · folio</div>'
+    +'<div class="grain"></div>';
+  if(!document.querySelector('.orb'))document.body.insertAdjacentHTML('beforeend',ambient);
 
   /* ---------- 3D TILT HALUS (spring, gaya iOS) ---------- */
   if(!reduce){
