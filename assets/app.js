@@ -100,4 +100,23 @@
       card.addEventListener('pointerout',function(){trx=0;tryI=0;tli=0;if(!raf)raf=requestAnimationFrame(frame);},{passive:true});
     });
   }
+
+  /* ---------- HERO 3D PARALLAX (beranda) ---------- */
+  if(!reduce){
+    var sc=$('.hero3d');
+    if(sc){
+      var cw=$('.cw',sc),hx=0,hy=0,thx=0,thy=0,hraf=null;
+      function hframe(){
+        hx+=(thx-hx)*.1;hy+=(thy-hy)*.1;
+        cw.style.transform='rotateY('+(-14+hy*12).toFixed(2)+'deg) rotateX('+(5-hx*7).toFixed(2)+'deg)';
+        if(Math.abs(thx-hx)>.01||Math.abs(thy-hy)>.01)hraf=requestAnimationFrame(hframe);else hraf=null;
+      }
+      sc.addEventListener('pointermove',function(e){
+        var b=sc.getBoundingClientRect();
+        thx=(e.clientX-b.left)/b.width-.5;thy=(e.clientY-b.top)/b.height-.5;
+        if(!hraf)hraf=requestAnimationFrame(hframe);
+      },{passive:true});
+      sc.addEventListener('pointerleave',function(){thx=0;thy=0;if(!hraf)hraf=requestAnimationFrame(hframe);},{passive:true});
+    }
+  }
 })();

@@ -51,6 +51,48 @@ main#page{position:relative;z-index:3;min-height:100vh;display:flex;align-items:
 .hd h1 em{font-style:normal;background:linear-gradient(120deg,var(--pg),var(--pg2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hd p{color:var(--mut);margin:12px auto 0;font-size:14.5px;max-width:600px;line-height:1.7}
 
+/* ---------- HERO 3D (BERANDA) ---------- */
+.hero{display:grid;grid-template-columns:1.28fr .82fr;gap:46px;align-items:center;margin-bottom:6px}
+.hero-copy{text-align:left}
+.hero-copy .chip{margin-bottom:20px}
+.hero-copy h1{font-family:var(--font-display);font-size:clamp(29px,3.5vw,44px);font-weight:500;letter-spacing:-.5px;line-height:1.12;margin-top:0}
+.hero-copy h1 em{font-style:normal;background:linear-gradient(120deg,var(--pg),var(--pg2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy .lede{color:var(--mut);font-size:15.5px;line-height:1.75;max-width:540px;margin:15px 0 0}
+.mono-badge{color:var(--faint);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;margin-top:20px}
+.hero3d{position:relative;perspective:1300px;height:340px;display:grid;place-items:center}
+.cw{position:relative;width:100%;max-width:400px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(170deg,rgba(24,26,24,.92),rgba(10,10,10,.96));box-shadow:0 46px 96px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.09);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:rotateY(-14deg) rotateX(5deg);transform-style:preserve-3d}
+.cw-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cw-bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57;box-shadow:0 0 6px rgba(255,95,87,.6)}
+.cw-bar i:nth-child(2){background:#febc2e}
+.cw-bar i:nth-child(3){background:#28c840}
+.cw-bar span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--faint);margin-left:6px}
+.cw-bar b{margin-left:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--pg);border:1px solid rgba(255,105,1,.45);padding:2px 7px;border-radius:4px;font-weight:400}
+.code{margin:0;padding:16px 18px 14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.78;color:#d8d8d4;white-space:pre;overflow:hidden}
+.c-c{color:#565650}.c-w{color:#f5f5f0}.c-k{color:#ff9a4a}.c-g{color:#7ee787}.c-b{color:#79c0ff}.c-r{color:#ff7b72}.c-p{color:#d2a8ff}
+.code .cur{display:inline-block;width:7px;height:13px;background:var(--pg);vertical-align:-2px;animation:cur 1.1s steps(2) infinite;box-shadow:0 0 10px rgba(255,105,1,.8)}
+@keyframes cur{50%{background:transparent}}
+.cw-foot{padding:10px 16px;border-top:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:10px;color:#8b949e;display:flex;align-items:center;gap:8px}
+.cw-foot::before{content:'';width:8px;height:8px;border-radius:50%;background:#28c840;box-shadow:0 0 8px rgba(40,200,64,.8);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+.f3{position:absolute;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:14px;color:rgba(255,255,255,.17);display:grid;place-items:center;width:56px;height:56px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 18px 34px -18px rgba(0,0,0,.75);animation:fFloat 9s ease-in-out infinite alternate;will-change:transform}
+.f3:nth-of-type(1){top:0;right:4%;animation-delay:0s}
+.f3:nth-of-type(2){top:19%;left:-2%;animation-delay:1.2s}
+.f3:nth-of-type(3){bottom:17%;right:0;animation-delay:2.1s}
+.f3:nth-of-type(4){bottom:0;left:15%;animation-delay:.7s}
+.f3:nth-of-type(5){top:46%;left:-4%;animation-delay:1.9s}
+@keyframes fFloat{from{transform:translate3d(0,0,20px) rotate(-5deg)}to{transform:translate3d(0,-18px,70px) rotate(6deg)}}
+@media(max-width:920px){.hero{grid-template-columns:1fr;gap:30px}.hero-copy{text-align:center}.hero-copy .lede,.mono-badge{margin-left:auto;margin-right:auto}.hero3d{height:300px}}
+
+/* ---------- CAROUSEL 3D (KEAHLIAN) ---------- */
+.ring3d{display:grid;place-items:center;height:250px;perspective:1000px;margin:8px 0 2px}
+.ring{list-style:none;position:relative;width:170px;height:170px;transform-style:preserve-3d;animation:spin3 26s linear infinite;will-change:transform}
+.ring3d:hover .ring{animation-play-state:paused}
+.ring li{position:absolute;inset:0;display:grid;place-items:center;transform:rotateY(calc(var(--i)*45deg)) translateZ(250px)}
+.ring li b{position:relative;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 20px 36px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.08);backface-visibility:hidden;font-weight:400;font-style:normal}
+.ring li img{width:30px;height:30px;filter:brightness(0) invert(1)}
+.ring li b span{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase;white-space:nowrap}
+@keyframes spin3{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+
 /* ---------- BERANDA ---------- */
 .lede{font-size:15px}
 .home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:13px;margin-top:44px}
@@ -200,4 +242,6 @@ form .btn{justify-content:center;width:100%}
   .reveal{opacity:1;transform:none}
   .marquee .m-track,.orb{animation:none !important}
   .orb{filter:none;opacity:.35}
+  .ring,.f3{animation:none !important}
+  .cw{transform:rotateY(-10deg) rotateX(3deg)}
 }
