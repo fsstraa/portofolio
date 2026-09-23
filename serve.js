@@ -74,13 +74,18 @@ function gitSync() {
 /* ---------- schedule live reload ---------- */
 let timer = null;
 let suppressUntil = 0;
+let lastActionAt = 0;
+const WRITE_WINDOW = 6000;   // event dari tulisan kita sendiri diblokir 6 detik
+const MIN_GAP = 4000;        // min. jeda antar-aksi (anti event palsu tertunda)
 function schedule(file) {
   if (!file || IGNORE.test(file)) return;
   if (Date.now() < suppressUntil) return;
   const base = path.basename(file);
-  if (selfMap[base] && Date.now() - selfMap[base] < 900) return;
+  if (selfMap[base] && Date.now() - selfMap[base] < WRITE_WINDOW) return;
   clearTimeout(timer);
   timer = setTimeout(() => {
+    if (Date.now() - lastActionAt < MIN_GAP) return;
+    lastActionAt = Date.now();
     console.log('[reload] ->', file);
     bumpAll();
     for (const c of clients) { try { c.write('data: go\n\n'); } catch (e) { clients.delete(c); } }
