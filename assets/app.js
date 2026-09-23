@@ -79,7 +79,7 @@
   }
 
   /* ---------- AURORA (latar bergaya blackbox.ai, berlapis tidak berat) ---------- */
-  if(!document.querySelector('.orb'))document.body.insertAdjacentHTML('beforeend','<i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>');
+  if(!document.querySelector('.orb'))document.body.insertAdjacentHTML('beforeend','<i class="bg-grid" aria-hidden="true"></i><i class="bg2" aria-hidden="true"></i><i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>');
 
   /* ---------- 3D TILT HALUS (spring, gaya iOS) ---------- */
   if(!reduce){
