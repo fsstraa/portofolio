@@ -1,8 +1,7 @@
 (function(){
-  /* ================= DATA PORTFOLIO =================
-     Halaman dalam dibuka sebagai panel di atas beranda (iframe).
-     Di sini hanya logika data + animasi ringan; navigasi & transisi
-     halaman mandiri sudah tidak dipakai (mengikuti model UI beranda). */
+  /* ===== DATA PORTFOLIO + ANIMASI RINGAN =====
+     Data dari Admin (localStorage + pfdata.json GitHub), reveal, counter,
+     marquee, form kontak, aurora, tilt 3D, parallax hero, slide antar halaman. */
 
   var $=function(s,r){return (r||document).querySelector(s)};
   var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
