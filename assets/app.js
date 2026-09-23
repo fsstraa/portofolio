@@ -78,27 +78,102 @@
     });
   }
 
-  /* ---------- AURORA (latar bergaya blackbox.ai, berlapis tidak berat) ---------- */
-  let ambient='<i class="bg-grid" aria-hidden="true"></i><i class="bg2" aria-hidden="true"></i>'
+  /* ---------- LAPISAN LATAR PER-HALAMAN (gaya editor/terminal, tiap page beda) ---------- */
+  var SC={
+    'index.html':{tabs:['fachry.tsx','server.ts'],exp:'EXPLORER',
+      tree:[[1,'#e8a33d','app.ts'],[1,'#79c0ff','ui.css'],[0,'#7ee787','index.ts'],[0,'#79c0ff','fachry.tsx']],
+      rows:['<span class="c-c">// folio — build &amp; deploy in one shot</span>',
+        '<span class="c-k">import</span> <span class="c-w">ui</span> <span class="c-k">from</span> <span class="c-g">"./ui"</span>;',
+        '<span class="c-k">const</span> <span class="c-w">theme</span> = <span class="c-g">"#ff6901"</span>;',
+        '<span class="c-k">export async function</span> <span class="c-b">build</span>(site) {',
+        '&nbsp;&nbsp;<span class="c-k">const</span> out = <span class="c-k">await</span> <span class="c-b">compile</span>(site.files);',
+        '&nbsp;&nbsp;<span class="c-k">if</span> (fmt(out).size &gt; 8120) <span class="c-k">return</span> <span class="c-b">warn</span>(site);',
+        '&nbsp;&nbsp;<span class="c-k">return</span> <span class="c-b">push</span>(gh, out);','}','',
+        '<span class="c-c">// 0 errors · main ●</span>'],
+      st:['main ●','0▲ 0▼','ln 7, col 4','UTF-8','LF','2 sp']},
+    'biodata.html':{tabs:['profile.ts','hobbies.ts'],exp:'PERSONAL',
+      tree:[[1,'#e8a33d','cv.pdf'],[1,'#79c0ff','foto.png'],[0,'#7ee787','profile.ts'],[0,'#79c0ff','hobbies.ts']],
+      rows:['<span class="c-c">// profil pribadi — Fachry</span>',
+        '<span class="c-k">export const</span> <span class="c-w">person</span> = {',
+        '&nbsp;&nbsp;origin : <span class="c-g">"Tangerang, Indonesia"</span>,',
+        '&nbsp;&nbsp;focus  : <span class="c-g">"web + on-device ai"</span>,',
+        '&nbsp;&nbsp;edu    : <span class="c-g">"itsn — teknik informatika"</span>,',
+        '&nbsp;&nbsp;hobby  : [<span class="c-b">build</span>, <span class="c-b">read</span>, <span class="c-b">plot</span>],',
+        '};','',
+        '<span class="c-w">person</span>.title = <span class="c-g">"biasa dipanggil FS"</span>;',
+        '<span class="c-c">// wa/email dikelola via menu admin</span>'],
+      st:['main ●','profile read','ln 9, col 2','UTF-8','LF','2 sp']},
+    'keahlian.html':{tabs:['stack.yml','dotfiles'],exp:'STACK',
+      tree:[[1,'#e8a33d','.npmrc'],[1,'#79c0ff','settings.json'],[0,'#7ee787','stack.yml']],
+      rows:['<span class="c-k">stack:</span>',
+        '&nbsp;&nbsp;frontend : [react, laravel, flutter]',
+        '&nbsp;&nbsp;ai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: [local llm, vision]',
+        '&nbsp;&nbsp;tools&nbsp;&nbsp;&nbsp;: [figma, git, docker]',
+        '&nbsp;&nbsp;lang&nbsp;&nbsp;&nbsp;&nbsp;: [ts, js, php, dart]',
+        '<span class="c-k">notes:</span>',
+        '&nbsp;&nbsp;- dipakai harian, bukan cuma tau nama','',
+        '<span class="c-c"># 36 logo, dua jalur marquee</span>',
+        '<span class="c-c"># arahkan kursor untuk pause</span>'],
+      st:['main ●','yaml lint ok','UTF-8','LF','2 sp']},
+    'kegiatan.html':{tabs:['CHANGELOG.md','log-2026'],exp:'LOG',
+      tree:[[0,'#7ee787','build-day.md'],[0,'#79c0ff','workshop-ondevice.md'],[0,'#e8a33d','kepanitiaan.md']],
+      rows:['<span class="c-w"># kegiatan — 2026</span>','',
+        '<span class="c-k">##</span> lomba &amp; workshop',
+        '- build day @ kampus — ui/ux 3 besar',
+        '- workshop on-device ai — 40 peserta','',
+        '<span class="c-k">##</span> organisasi',
+        '- panitia tryout nasional (2 season)',
+        '- mentor kelas web — 15 siswa','',
+        '<span class="c-c">// setiap ide tercatat di sini</span>'],
+      st:['main ●','+11 entries','UTF-8','LF']},
+    'proyek.html':{tabs:['deploy.sh','app.ts'],exp:'SHIP',
+      tree:[[0,'#79c0ff','dashboard.md'],[0,'#e8a33d','pos-kasir'],[0,'#7ee787','ai-scan.md']],
+      rows:['<span class="c-c">#!/bin/bash</span>',
+        '<span class="c-w">git</span> push gh folio',
+        '<span class="c-w">npm</span> run gen <span class="c-k">&amp;&amp;</span> <span class="c-w">npm</span> run build',
+        '<span class="c-w">scp</span> dist/* fs@vps:/srv/folio/',
+        '<span class="c-w">curl</span> -fsS http://app.fs/healthz',
+        '<span class="c-c"># → 200 ok (26ms)</span>','',
+        '<span class="c-c"># tiap rilis tercatat</span>',
+        '<span class="c-w">git</span> log --oneline -3',
+        '<span class="c-c"># 3 feature, 2 fix, 0 bug baru</span>'],
+      st:['main ●','deploy ok','26ms','UTF-8','LF','2 sp']},
+    'pencapaian.html':{tabs:['trophy.ts','verif'],exp:'ACH',
+      tree:[[0,'#7ee787','ach-2024.md'],[0,'#79c0ff','cert-2025'],[0,'#e8a33d','verif.ts']],
+      rows:['<span class="c-c">// jejak — semua ada buktinya</span>',
+        '<span class="c-k">const</span> ach = <span class="c-b">list</span>(<span class="c-g">"proof/"</span>)',
+        '&nbsp;&nbsp;.filter(a =&gt; a.evidence == <span class="c-b">true</span>)',
+        '&nbsp;&nbsp;.sort((a,b) =&gt; a.year - b.year);','',
+        '<span class="c-c">// 12 entri · semua terverifikasi</span>',
+        '<span class="c-c">// tidak ada klaim kosong</span>'],
+      st:['main ●','12 entries','verified','UTF-8','LF']},
+    'kontak.html':{tabs:['whos.ts','inbox'],exp:'INBOX',
+      tree:[[0,'#7ee787','wa.txt'],[0,'#79c0ff','email.txt'],[0,'#e8a33d','linkedin.txt']],
+      rows:['<span class="c-c">// balas &lt; 24 jam — janji</span>',
+        '<span class="c-b">include</span>({ email, wa, linkedin });',
+        '<span class="c-b">inbox</span>.read();',
+        '<span class="c-k">for</span> (const msg <span class="c-k">of</span> q)',
+        '&nbsp;&nbsp;<span class="c-b">reply</span>(msg, { soon: <span class="c-b">true</span> });','',
+        '<span class="c-c">// pilih saluran favoritmu</span>',
+        '<span class="c-c">// nggak usah basa-basi</span>'],
+      st:['main ●','inbox 3 new','< 24h','UTF-8','LF']}
+  };
+  var cur = location.pathname.split('/').pop() || 'index.html';
+  var S = SC[cur] || SC['index.html'];
+  var treeHtml = (S.tree||[]).map(function(t){
+    return '<div class="vsc-fl" style="--f:'+t[1]+';margin-left:'+(12+t[0]*20)+'px">'+t[2]+'</div>';
+  }).join('');
+  var rowsHtml = S.rows.map(function(r,i){
+    return '<div class="vsc-row"><span class="vsc-g">'+(i+1)+'</span><code>'+r+'</code></div>';
+  }).join('');
+  var stHtml = S.st.map(function(x){return '<i>'+x+'</i>';}).join('');
+  var ambient='<i class="bg-grid" aria-hidden="true"></i><i class="bg2" aria-hidden="true"></i>'
     +'<div class="vsc" aria-hidden="true">'
-    +'<div class="vsc-title"><i></i><i></i><i></i><span class="vsc-tab">fachry.tsx</span><span class="vsc-tab">server.ts</span></div>'
+    +'<div class="vsc-title"><i></i><i></i><i></i><span class="vsc-tab">'+S.tabs[0]+'</span><span class="vsc-tab">'+S.tabs[1]+'</span></div>'
     +'<div class="vsc-main"><div class="vsc-act"><b></b><b></b><b></b><b></b><b></b></div>'
-    +'<div class="vsc-side"><div class="vsc-sec">EXPLORER</div><div class="vsc-pf">folio'
-    +'<div class="vsc-dir">assets<div class="vsc-fl" style="--f:#e8a33d">app.ts</div><div class="vsc-fl" style="--f:#79c0ff">ui.css</div></div>'
-    +'<div class="vsc-fl" style="--f:#7ee787">index.ts</div><div class="vsc-fl" style="--f:#79c0ff">fachry.tsx</div></div></div>'
-    +'<div class="vsc-ed">'
-    +'<div class="vsc-row"><span class="vsc-g">1</span><code><span class="c-c">// folio — build &amp; deploy in one shot</span></code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">2</span><code><span class="c-k">import</span> <span class="c-w">ui</span> <span class="c-k">from</span> <span class="c-g">"./ui"</span>;</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">3</span><code><span class="c-k">const</span> <span class="c-w">theme</span> = <span class="c-g">"#ff6901"</span>;</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">4</span><code><span class="c-k">export async function</span> <span class="c-b">build</span>(site) {</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">5</span><code>&nbsp;&nbsp;<span class="c-k">const</span> out = <span class="c-k">await</span> <span class="c-b">compile</span>(site.files);</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">6</span><code>&nbsp;&nbsp;<span class="c-k">if</span> (fmt(out).size &gt; 8120) <span class="c-k">return</span> <span class="c-b">warn</span>(site);</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">7</span><code>&nbsp;&nbsp;<span class="c-k">return</span> <span class="c-b">push</span>(gh, out);</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">8</span><code>}</code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">9</span><code></code></div>'
-    +'<div class="vsc-row"><span class="vsc-g">10</span><code><span class="c-c">// 0 errors · main ●</span></code></div>'
-    +'</div></div>'
-    +'<div class="vsc-status"><b></b><b></b><b></b><i>main ●</i><i>0▲ 0▼</i><i>ln 7, col 4</i><i>UTF-8</i><i>LF</i><i>2 sp</i></div>'
+    +'<div class="vsc-side"><div class="vsc-sec">'+S.exp+'</div>'+treeHtml+'</div>'
+    +'<div class="vsc-ed">'+rowsHtml+'</div></div>'
+    +'<div class="vsc-status"><b></b><b></b><b></b>'+stHtml+'</div>'
     +'</div>'
     +'<i class="orb o1" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>'
     +'<div class="island"><i></i>fachry · folio</div>'
