@@ -76,22 +76,24 @@ let timer = null;
 let suppressUntil = 0;
 let lastActionAt = 0;
 const WRITE_WINDOW = 6000;   // event dari tulisan kita sendiri diblokir 6 detik
-const MIN_GAP = 4000;        // min. jeda antar-aksi (anti event palsu tertunda)
+const MIN_GAP = 4000;        // min. jeda antar-aksi; edit terlalu cepat DIGABUNG bukan dibuang
 function schedule(file) {
   if (!file || IGNORE.test(file)) return;
   if (Date.now() < suppressUntil) return;
   const base = path.basename(file);
   if (selfMap[base] && Date.now() - selfMap[base] < WRITE_WINDOW) return;
   clearTimeout(timer);
-  timer = setTimeout(() => {
-    if (Date.now() - lastActionAt < MIN_GAP) return;
+  const run = () => {
+    const wait = MIN_GAP - (Date.now() - lastActionAt);
+    if (wait > 0) { timer = setTimeout(run, wait + 30); return; }
     lastActionAt = Date.now();
     console.log('[reload] ->', file);
     bumpAll();
     for (const c of clients) { try { c.write('data: go\n\n'); } catch (e) { clients.delete(c); } }
     suppressUntil = Date.now() + 1500;
     gitSync();
-  }, 900);
+  };
+  timer = setTimeout(run, 900);
 }
 
 /* ---------- watcher ---------- */

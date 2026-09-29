@@ -1,5 +1,5 @@
 :root{
-  --bg:#080808; --panel:#0d0d0d; --line:#1a1a1a;
+  --panel:#0d0d0d; --line:#1a1a1a;
   --txt:#f2f2f0; --mut:#9a9a96; --faint:#676763;
   --pg:#ff6901; --pg2:#ff9a4a;
   --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -44,10 +44,7 @@ body::before{
 .vsc-act b:first-child{background:var(--pg);box-shadow:0 0 10px rgba(255,105,1,.6)}
 .vsc-side{width:215px;border-right:1px solid rgba(255,255,255,.06);padding:14px 12px;background:rgba(255,255,255,.015);overflow:hidden;white-space:nowrap}
 .vsc-sec{font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.38);margin-bottom:10px}
-.vsc-pf{font-size:10.5px;color:rgba(255,255,255,.6)}
-.vsc-dir{margin-left:14px;font-size:10.5px;color:rgba(255,255,255,.48);line-height:1.9}
 .vsc-fl{margin-left:30px;font-size:10.5px;color:rgba(255,255,255,.5);line-height:1.9;position:relative;padding-left:12px}
-.vsc-side .vsc-pf>.vsc-dir{margin-top:6px}
 .vsc-fl::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:2px;background:var(--f,#79c0ff);opacity:.95}
 .vsc-ed{flex:1;overflow:hidden}
 .vsc-row{display:flex;align-items:baseline;line-height:1.8;font-size:10.5px}
@@ -138,7 +135,6 @@ main#page.s-out{opacity:0;transform:translateX(var(--sx,-44px)) scale(.985);tran
 .swipe-hint.show{opacity:.9}
 
 /* ---------- BERANDA ---------- */
-.lede{font-size:15px}
 .home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:13px;margin-top:44px}
 .home-card.wide{grid-column:span 2}
 .home-card{display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:24px;background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);box-shadow:0 20px 54px -26px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);transition:border-color .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform}
@@ -191,7 +187,7 @@ main#page.s-out{opacity:0;transform:translateX(var(--sx,-44px)) scale(.985);tran
 .dl .cell{display:flex;gap:12px;align-items:flex-start;padding:15px;border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .dl .ico{flex:0 0 38px;height:38px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);font-size:14px;font-weight:800;color:var(--mut)}
 .dl .cell b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--faint);margin-bottom:4px}
-.dl .cell span{font-size:14px;font-weight:600;word-break:break-word}
+.dl .cell span:not(.ico){font-size:14px;font-weight:600;word-break:break-word}
 
 /* ---------- SKILL MARQUEE ---------- */
 .marquee{position:relative;overflow:hidden;padding:16px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
@@ -214,7 +210,6 @@ main#page.s-out{opacity:0;transform:translateX(var(--sx,-44px)) scale(.985);tran
 main .act-card:hover{box-shadow:0 22px 46px rgba(0,0,0,.5)}
 .ph{position:relative;height:170px;overflow:hidden;background:#0a0a0a}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.5s}
-.ph img.gone{display:none}
 .act-card:hover .ph img{transform:scale(1.07)}
 .ph-bg{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:800;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.4);background:linear-gradient(135deg,var(--pg),var(--pg2))}
 .ph-bg.gone{display:none}

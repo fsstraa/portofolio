@@ -1,7 +1,8 @@
 (function(){
-  /* ===== DATA PORTFOLIO + ANIMASI RINGAN =====
-     Data dari Admin (localStorage + pfdata.json GitHub), reveal, counter,
-     marquee, form kontak, aurora, tilt 3D, parallax hero, slide antar halaman. */
+  /* ===== DATA PORTFOLIO + LATAR AMBIENT + ANIMASI RINGAN =====
+     Data dari Admin (localStorage + pfdata.json GitHub), latar bergaya
+     editor/terminal per-halaman, grain iOS, reveal, counter, marquee,
+     form kontak, tilt 3D, parallax hero, slide antar halaman. */
 
   var $=function(s,r){return (r||document).querySelector(s)};
   var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
@@ -9,20 +10,9 @@
 
   var PFL={};try{PFL=JSON.parse(localStorage.getItem('pfData')||'null')||{}}catch(e){PFL={}}
   var GH={owner:'fsstraa',repo:'portofolio',branch:'main',file:'pfdata.json'};
-  var DH={
-    igL:'https://instagram.com/rizky.pratama', ig:'@rizky.pratama',
-    ghL:'https://github.com/rizkypratama', gh:'@rizkypratama',
-    liL:'https://linkedin.com/in/rizkypratama', li:'/in/rizkypratama',
-    em:'rizky.pratama@gmail.com', waL:'6281234567890', wa:'+62 812-3456-7890'
-  };
-  function buildDH(){
-    return {
-      ig:PFL.ig||DH.ig, igL:PFL.igL||DH.igL,
-      gh:PFL.gh||DH.gh, ghL:PFL.ghL||DH.ghL,
-      li:PFL.li||DH.li, liL:PFL.liL||DH.liL,
-      em:PFL.email||DH.em, wa:PFL.wa||DH.wa, waL:PFL.waL||DH.waL
-    };
-  }
+  try{var _g=JSON.parse(localStorage.getItem('pf_gh')||'null');if(_g&&typeof _g==='object'){for(var k in _g)if(k!=='token'&&/^(owner|repo|branch|file)$/.test(k)&&_g[k])GH[k]=_g[k]}}catch(e){}
+  var DH={em:'rizky.pratama@gmail.com'};
+  function buildDH(){return {em:PFL.email||DH.em}}
 
   /* ---------- TERAPKAN DATA DARI ADMIN ---------- */
   function applyPF(){
@@ -42,8 +32,7 @@
   applyPF();
 
   /* ---------- AMBIL DATA DARI GITHUB (lintas device) ---------- */
-  try{
-    fetch('https://raw.githubusercontent.com/'+GH.owner+'/'+GH.repo+'/'+GH.branch+'/'+GH.file+'?t='+Date.now(),{cache:'no-store'})
+  fetch('https://raw.githubusercontent.com/'+GH.owner+'/'+GH.repo+'/'+GH.branch+'/'+GH.file+'?t='+Date.now(),{cache:'no-store'})
       .then(function(r){if(!r.ok)throw 0;return r.json()})
       .then(function(j){
         if(!j||typeof j!=='object')return;
@@ -53,7 +42,6 @@
         applyPF();
       })
       .catch(function(){});
-  }catch(e){}
 
   /* ---------- REVEAL ---------- */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
@@ -160,7 +148,7 @@
   };
   var cur = location.pathname.split('/').pop() || 'index.html';
   var S = SC[cur] || SC['index.html'];
-  var treeHtml = (S.tree||[]).map(function(t){
+  var treeHtml = S.tree.map(function(t){
     return '<div class="vsc-fl" style="--f:'+t[1]+';margin-left:'+(12+t[0]*20)+'px">'+t[2]+'</div>';
   }).join('');
   var rowsHtml = S.rows.map(function(r,i){
@@ -220,8 +208,7 @@
 
   /* ---------- SLIDE ANTAR HALAMAN ---------- */
   if(!reduce){
-    var ORDER=['index.html','biodata.html','keahlian.html','kegiatan.html','proyek.html','pencapaian.html','kontak.html'];
-    var cur=location.pathname.split('/').pop()||'index.html';
+    var ORDER=Object.keys(SC);
     var idx=ORDER.indexOf(cur);
     if(idx>-1){
       var main=document.getElementById('page');
