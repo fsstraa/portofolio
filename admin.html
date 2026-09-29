@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin | Fachry Satria Putra</title>
 <style>
-  @font-face{font-family:'Lexend';src:url('assets/lexend-latin.woff2') format('woff2');font-weight:100 900;font-display:swap}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Lexend',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:300;background:#080808;color:#f2f2f0;min-height:100vh;padding:26px 16px 60px;-webkit-font-smoothing:antialiased}
-  h1{font-family:'Lexend',sans-serif;font-weight:500;font-size:26px;letter-spacing:-.3px;margin-bottom:4px}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:300;background:#080808;color:#f2f2f0;min-height:100vh;padding:26px 16px 60px;-webkit-font-smoothing:antialiased}
+  h1{font-family:'Inter',sans-serif;font-weight:500;font-size:26px;letter-spacing:-.3px;margin-bottom:4px}
   .sub{color:#9a9a96;font-size:13.5px;margin-bottom:26px}
   .wrap{max-width:860px;margin:0 auto}
   .card{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:12px;padding:22px;margin-bottom:20px}
@@ -57,9 +56,6 @@
       <div><label>Nama lengkap</label><input id="nama" placeholder="Fachry Satria Putra"></div>
       <div><label>Slogan / Badge</label><input id="badge" placeholder="Web Development · Builder · UI/UX Designer"></div>
     </div>
-    <div class="row">
-      <div><label>Peran (typed, pisahkan dengan koma)</label><input id="roles" placeholder="Web Development, Builder, UI/UX Designer"></div>
-    </div>
     <label>Deskripsi beranda</label>
     <textarea id="desc"></textarea>
     <label>Paragraf tentang (halaman Biodata)</label>
@@ -72,13 +68,13 @@
     <h2>Kontak &amp; Sosial Media</h2>
     <div class="row">
       <div><label>Email</label><input id="email" placeholder="nama@gmail.com"></div>
-      <div><label>WhatsApp (teks tampil)</label><input id="wa" placeholder="+62 812-3456-7890"></div>
-      <div><label>No WhatsApp (link, angka saja)</label><input id="waL" placeholder="6281234567890"></div>
-      <div><label>Instagram (teks tampil)</label><input id="ig" placeholder="@username"></div>
-      <div><label>Link Instagram</label><input id="igL" placeholder="https://instagram.com/username"></div>
-      <div><label>GitHub (teks tampil)</label><input id="gh" placeholder="@username"></div>
-      <div><label>Link GitHub</label><input id="ghL" placeholder="https://github.com/username"></div>
-      <div><label>LinkedIn (teks tampil)</label><input id="li" placeholder="/in/username"></div>
+      <div><label>WhatsApp (teks tampil)</label><input id="wa" placeholder="+62 857-7883-7136"></div>
+      <div><label>No WhatsApp (link, angka saja)</label><input id="waL" placeholder="6285778837136"></div>
+      <div><label>Instagram (teks tampil)</label><input id="ig" placeholder="@fahriistr"></div>
+      <div><label>Link Instagram</label><input id="igL" placeholder="https://instagram.com/fahriistr"></div>
+      <div><label>GitHub (teks tampil)</label><input id="gh" placeholder="fsstraa"></div>
+      <div><label>Link GitHub</label><input id="ghL" placeholder="https://github.com/fsstraa"></div>
+      <div><label>LinkedIn (teks tampil)</label><input id="li" placeholder="/in/fachrysatriaputra27"></div>
       <div><label>Link LinkedIn</label><input id="liL" placeholder="https://linkedin.com/in/username"></div>
     </div>
   </div>
@@ -198,7 +194,7 @@
   }else{$('#gate').style.display='none'}
 
   /* ---- LOAD ---- */
-  var D=getData(),FIELDS=['nama','badge','roles','desc','tentang','email','wa','waL','ig','igL','gh','ghL','li','liL','nama_lengkap','ttl','lokasi','pendidikan','status','minat','stat1','stat2','stat3','stat4','lbl1','lbl2','lbl3','lbl4'];
+  var D=getData(),FIELDS=['nama','badge','desc','tentang','email','wa','waL','ig','igL','gh','ghL','li','liL','nama_lengkap','ttl','lokasi','pendidikan','status','minat','stat1','stat2','stat3','stat4','lbl1','lbl2','lbl3','lbl4'];
   FIELDS.forEach(function(k){var el=$('#'+k);if(el&&D[k]!=null)el.value=D[k]});
 
   function fileToData(url,key,maxW){
@@ -271,9 +267,6 @@
       var t=($('#'+k+'t').value||'').trim(),d=($('#'+k+'d').value||'').trim();
       if(t)D[k+'t']=t;if(d)D[k+'d']=d;
     });
-    if($('#roles').value.trim()){
-      D.roles=$('#roles').value.split(',').map(function(s){return s.trim()}).filter(Boolean);
-    }
   }
   function saveToGitHub(){
     var g=loadGh();if(!g.token||!g.repo)return Promise.resolve('local');
